@@ -6,6 +6,7 @@ export type Room = {
   isAvailable: boolean;
   images: RoomImage[];
   reviews: string[];
+  location: string;
   createdAt: string;
   updatedAt: string;
 };

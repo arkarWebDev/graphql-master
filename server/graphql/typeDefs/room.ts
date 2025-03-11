@@ -15,6 +15,7 @@ export const roomTypeDefs = gql`
     isAvailable: Boolean!
     images: [RoomImage]
     reviews: [String]
+    location: String!
     createdAt: String
     updatedAt: String
   }
@@ -27,6 +28,7 @@ export const roomTypeDefs = gql`
     isAvailable: Boolean!
     images: [String]
     reviews: [String]
+    location: String!
   }
 
   type Query {

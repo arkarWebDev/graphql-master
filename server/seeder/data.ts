@@ -6,6 +6,7 @@ export const rooms = [
     pricePerNight: 100.0,
     capacity: 1,
     isAvailable: true,
+    location: "Yangon",
     images: [
       {
         url: "https://images.pexels.com/photos/1669799/pexels-photo-1669799.jpeg",
@@ -19,6 +20,14 @@ export const rooms = [
         url: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg",
         public_id: "room1-3",
       },
+      {
+        url: "https://images.pexels.com/photos/6782346/pexels-photo-6782346.jpeg",
+        public_id: "room1-4",
+      },
+      {
+        url: "https://images.pexels.com/photos/7060811/pexels-photo-7060811.jpeg",
+        public_id: "room1-5",
+      },
     ],
   },
   {
@@ -28,18 +37,27 @@ export const rooms = [
     pricePerNight: 150.0,
     capacity: 2,
     isAvailable: true,
+    location: "Mandalay",
     images: [
       {
-        url: "https://images.pexels.com/photos/6782346/pexels-photo-6782346.jpeg",
+        url: "https://images.pexels.com/photos/439227/pexels-photo-439227.jpeg",
         public_id: "room2-1",
       },
       {
-        url: "https://images.pexels.com/photos/7060811/pexels-photo-7060811.jpeg",
+        url: "https://images.pexels.com/photos/1669799/pexels-photo-1669799.jpeg",
         public_id: "room2-2",
       },
       {
         url: "https://images.pexels.com/photos/7512038/pexels-photo-7512038.jpeg",
         public_id: "room2-3",
+      },
+      {
+        url: "https://images.pexels.com/photos/7060811/pexels-photo-7060811.jpeg",
+        public_id: "room2-4",
+      },
+      {
+        url: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg",
+        public_id: "room2-5",
       },
     ],
   },
@@ -50,18 +68,27 @@ export const rooms = [
     pricePerNight: 250.0,
     capacity: 4,
     isAvailable: false,
+    location: "Bagan",
     images: [
       {
-        url: "https://images.pexels.com/photos/1669799/pexels-photo-1669799.jpeg",
+        url: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg",
         public_id: "room3-1",
       },
       {
-        url: "https://images.pexels.com/photos/7060811/pexels-photo-7060811.jpeg",
+        url: "https://images.pexels.com/photos/7512038/pexels-photo-7512038.jpeg",
         public_id: "room3-2",
       },
       {
         url: "https://images.pexels.com/photos/439227/pexels-photo-439227.jpeg",
         public_id: "room3-3",
+      },
+      {
+        url: "https://images.pexels.com/photos/6782346/pexels-photo-6782346.jpeg",
+        public_id: "room3-4",
+      },
+      {
+        url: "https://images.pexels.com/photos/7060811/pexels-photo-7060811.jpeg",
+        public_id: "room3-5",
       },
     ],
   },
@@ -72,18 +99,27 @@ export const rooms = [
     pricePerNight: 120.0,
     capacity: 1,
     isAvailable: true,
+    location: "Shan",
     images: [
       {
-        url: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg",
+        url: "https://images.pexels.com/photos/6782346/pexels-photo-6782346.jpeg",
         public_id: "room4-1",
       },
       {
-        url: "https://images.pexels.com/photos/7512038/pexels-photo-7512038.jpeg",
+        url: "https://images.pexels.com/photos/1669799/pexels-photo-1669799.jpeg",
         public_id: "room4-2",
       },
       {
-        url: "https://images.pexels.com/photos/6782346/pexels-photo-6782346.jpeg",
+        url: "https://images.pexels.com/photos/439227/pexels-photo-439227.jpeg",
         public_id: "room4-3",
+      },
+      {
+        url: "https://images.pexels.com/photos/7060811/pexels-photo-7060811.jpeg",
+        public_id: "room4-4",
+      },
+      {
+        url: "https://images.pexels.com/photos/7512038/pexels-photo-7512038.jpeg",
+        public_id: "room4-5",
       },
     ],
   },
@@ -94,18 +130,27 @@ export const rooms = [
     pricePerNight: 180.0,
     capacity: 2,
     isAvailable: true,
+    location: "Yangon",
     images: [
       {
-        url: "https://images.pexels.com/photos/439227/pexels-photo-439227.jpeg",
+        url: "https://images.pexels.com/photos/7060811/pexels-photo-7060811.jpeg",
         public_id: "room5-1",
       },
       {
-        url: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg",
+        url: "https://images.pexels.com/photos/1669799/pexels-photo-1669799.jpeg",
         public_id: "room5-2",
       },
       {
-        url: "https://images.pexels.com/photos/7060811/pexels-photo-7060811.jpeg",
+        url: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg",
         public_id: "room5-3",
+      },
+      {
+        url: "https://images.pexels.com/photos/6782346/pexels-photo-6782346.jpeg",
+        public_id: "room5-4",
+      },
+      {
+        url: "https://images.pexels.com/photos/439227/pexels-photo-439227.jpeg",
+        public_id: "room5-5",
       },
     ],
   },
@@ -116,18 +161,27 @@ export const rooms = [
     pricePerNight: 300.0,
     capacity: 4,
     isAvailable: false,
+    location: "Mandalay",
     images: [
       {
         url: "https://images.pexels.com/photos/7512038/pexels-photo-7512038.jpeg",
         public_id: "room6-1",
       },
       {
-        url: "https://images.pexels.com/photos/6782346/pexels-photo-6782346.jpeg",
+        url: "https://images.pexels.com/photos/439227/pexels-photo-439227.jpeg",
         public_id: "room6-2",
       },
       {
-        url: "https://images.pexels.com/photos/1669799/pexels-photo-1669799.jpeg",
+        url: "https://images.pexels.com/photos/7060811/pexels-photo-7060811.jpeg",
         public_id: "room6-3",
+      },
+      {
+        url: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg",
+        public_id: "room6-4",
+      },
+      {
+        url: "https://images.pexels.com/photos/6782346/pexels-photo-6782346.jpeg",
+        public_id: "room6-5",
       },
     ],
   },
@@ -138,18 +192,27 @@ export const rooms = [
     pricePerNight: 110.0,
     capacity: 1,
     isAvailable: true,
+    location: "Bagan",
     images: [
       {
-        url: "https://images.pexels.com/photos/7060811/pexels-photo-7060811.jpeg",
+        url: "https://images.pexels.com/photos/1669799/pexels-photo-1669799.jpeg",
         public_id: "room7-1",
       },
       {
-        url: "https://images.pexels.com/photos/439227/pexels-photo-439227.jpeg",
+        url: "https://images.pexels.com/photos/7512038/pexels-photo-7512038.jpeg",
         public_id: "room7-2",
       },
       {
-        url: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg",
+        url: "https://images.pexels.com/photos/7060811/pexels-photo-7060811.jpeg",
         public_id: "room7-3",
+      },
+      {
+        url: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg",
+        public_id: "room7-4",
+      },
+      {
+        url: "https://images.pexels.com/photos/6782346/pexels-photo-6782346.jpeg",
+        public_id: "room7-5",
       },
     ],
   },
@@ -160,18 +223,27 @@ export const rooms = [
     pricePerNight: 160.0,
     capacity: 2,
     isAvailable: true,
+    location: "Shan",
     images: [
       {
-        url: "https://images.pexels.com/photos/6782346/pexels-photo-6782346.jpeg",
+        url: "https://images.pexels.com/photos/439227/pexels-photo-439227.jpeg",
         public_id: "room8-1",
       },
       {
-        url: "https://images.pexels.com/photos/7512038/pexels-photo-7512038.jpeg",
+        url: "https://images.pexels.com/photos/1669799/pexels-photo-1669799.jpeg",
         public_id: "room8-2",
       },
       {
-        url: "https://images.pexels.com/photos/1669799/pexels-photo-1669799.jpeg",
+        url: "https://images.pexels.com/photos/7512038/pexels-photo-7512038.jpeg",
         public_id: "room8-3",
+      },
+      {
+        url: "https://images.pexels.com/photos/7060811/pexels-photo-7060811.jpeg",
+        public_id: "room8-4",
+      },
+      {
+        url: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg",
+        public_id: "room8-5",
       },
     ],
   },
@@ -182,18 +254,27 @@ export const rooms = [
     pricePerNight: 280.0,
     capacity: 4,
     isAvailable: false,
+    location: "Yangon",
     images: [
       {
         url: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg",
         public_id: "room9-1",
       },
       {
-        url: "https://images.pexels.com/photos/7060811/pexels-photo-7060811.jpeg",
+        url: "https://images.pexels.com/photos/1669799/pexels-photo-1669799.jpeg",
         public_id: "room9-2",
       },
       {
-        url: "https://images.pexels.com/photos/439227/pexels-photo-439227.jpeg",
+        url: "https://images.pexels.com/photos/7512038/pexels-photo-7512038.jpeg",
         public_id: "room9-3",
+      },
+      {
+        url: "https://images.pexels.com/photos/439227/pexels-photo-439227.jpeg",
+        public_id: "room9-4",
+      },
+      {
+        url: "https://images.pexels.com/photos/7060811/pexels-photo-7060811.jpeg",
+        public_id: "room9-5",
       },
     ],
   },
@@ -204,6 +285,7 @@ export const rooms = [
     pricePerNight: 130.0,
     capacity: 1,
     isAvailable: true,
+    location: "Mandalay",
     images: [
       {
         url: "https://images.pexels.com/photos/7512038/pexels-photo-7512038.jpeg",
@@ -214,8 +296,16 @@ export const rooms = [
         public_id: "room10-2",
       },
       {
-        url: "https://images.pexels.com/photos/6782346/pexels-photo-6782346.jpeg",
+        url: "https://images.pexels.com/photos/439227/pexels-photo-439227.jpeg",
         public_id: "room10-3",
+      },
+      {
+        url: "https://images.pexels.com/photos/7060811/pexels-photo-7060811.jpeg",
+        public_id: "room10-4",
+      },
+      {
+        url: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg",
+        public_id: "room10-5",
       },
     ],
   },
