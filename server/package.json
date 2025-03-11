@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node app.ts",
+    "db-seeder": "tsc seeder/seeder.ts --outDir .tmp && node ./.tmp/seeder/seeder.js && rm -rf .tmp"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.13.8",
+    "ts-node": "^10.9.2"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.11.3",
+    "@graphql-tools/schema": "^10.0.20",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "graphql-tag": "^2.12.6",
+    "mongoose": "^8.11.0"
+  }
+}
