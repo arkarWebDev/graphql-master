@@ -12,6 +12,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Loader from "../common/Loader";
+import NotFound from "../common/NotFound";
 
 const DetailPage = () => {
   const params = useParams<{ id: string }>();
@@ -38,6 +39,10 @@ const DetailPage = () => {
         },
       ]
     : [];
+
+  if (error?.graphQLErrors[0].extensions?.code === "NOT_FOUND") {
+    return <NotFound />;
+  }
 
   return (
     <main className="layout">
