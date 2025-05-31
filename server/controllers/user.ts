@@ -4,6 +4,7 @@ import { UserInput } from "../types/user";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import errorHandler from "../middlewares/errorHandler";
+import { deleteImage, uploadSingleImage } from "../util/cloudinary";
 
 export const register = errorHandler(async (userInput: UserInput) => {
   const { email, password, name } = userInput;
@@ -38,5 +39,30 @@ export const login = errorHandler(
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     return userDoc;
+  }
+);
+
+export const uploadAvatar = errorHandler(
+  async (image: string, userId: string) => {
+    const userDoc = await User.findById(userId);
+
+    if (!userDoc) {
+      throw new Error("User not found.");
+    }
+
+    const response = await uploadSingleImage(image, "baganhotel/avatar");
+
+    if (userDoc.avatar?.public_id) {
+      await deleteImage(userDoc.avatar?.public_id);
+    }
+
+    await User.findByIdAndUpdate(userId, {
+      avatar: {
+        url: response.img_url,
+        public_id: response.public_id,
+      },
+    });
+
+    return true;
   }
 );

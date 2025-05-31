@@ -52,12 +52,12 @@ export const startApolloServer = async (app: Application) => {
               process.env.JWT_SECRET!
             ) as JWTPayload;
             user = await User.findById(decodedToken._id);
-
+            console.log("Authenticated user:", user?.email || "not found");
             if (!user) {
-              throw new Error("User not found.");
+              // throw new Error("User not found.");
             }
           } catch (error) {
-            throw new Error("Invaild token or expired token.");
+            // throw new Error("Invaild token or expired token.");
           }
         }
         return { req, res, user };

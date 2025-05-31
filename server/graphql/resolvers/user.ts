@@ -1,10 +1,10 @@
 import { Response } from "express";
-import { login, register } from "../../controllers/user";
-import { UserInput } from "../../types/user";
+import { login, register, uploadAvatar } from "../../controllers/user";
+import { User, UserInput } from "../../types/user";
 
 export const userResolvers = {
   Query: {
-    currentUser: async (_: any, __: any, { user }: { user: any }) => {
+    currentUser: async (_: any, __: any, { user }: { user: User }) => {
       return user;
     },
     logout: async (_: any, __: any, { res }: { res: Response }) => {
@@ -20,5 +20,10 @@ export const userResolvers = {
       { email, password }: { email: string; password: string },
       { res }: { res: Response }
     ) => login(email, password, res),
+    uploadAvatar: async (
+      _: any,
+      { image }: { image: string },
+      { user }: { user: User }
+    ) => uploadAvatar(image, user._id),
   },
 };

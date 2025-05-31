@@ -10,8 +10,11 @@ const isAdmin = rule({ cache: "contextual" })(async (parent, args, context) => {
   return context?.user?.role.includes("admin");
 });
 
-export const permissions = shield({
-  Query: {
-    currentUser: isAuthenticated,
+export const permissions = shield(
+  {
+    Query: {
+      currentUser: isAuthenticated,
+    },
   },
-});
+  { debug: true }
+);

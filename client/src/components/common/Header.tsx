@@ -56,7 +56,7 @@ const Header = () => {
         {!loading && data?.currentUser ? (
           <DropdownMenu>
             <DropdownMenuTrigger className="flex gap-1">
-              <Avatar>
+              <Avatar className="w-10 h-10">
                 <AvatarImage src={data.currentUser.avatar.url} />
                 <AvatarFallback className="bg-black text-white font-bold">
                   {data.currentUser.name.substring(0, 1).toUpperCase()}
@@ -72,7 +72,9 @@ const Header = () => {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link to={"/profile"}>Profile</Link>
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={logoutHandler}>
                 <span className="text-red-600">Logout</span>
               </DropdownMenuItem>
