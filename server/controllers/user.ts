@@ -80,3 +80,24 @@ export const updateUserProfile = errorHandler(
     return true;
   }
 );
+
+export const updateUserPassword = errorHandler(
+  async (oldPassword: string, newPassword: string, userId: string) => {
+    const userDoc = await User.findById(userId).select("+password");
+
+    if (!userDoc) {
+      throw new Error("User not found.");
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, userDoc.password);
+
+    if (!isMatch) {
+      throw new Error("Old password is wrong!");
+    }
+
+    userDoc.password = newPassword;
+    await userDoc.save();
+
+    return true;
+  }
+);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -22,7 +22,7 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useMutation, useReactiveVar } from "@apollo/client";
-import { UPDATE_USER_INFO_MUTATION } from "@/graphql/mutationss/user";
+import { UPDATE_USER_INFO_MUTATION } from "@/graphql/mutations/user";
 import { Button } from "../ui/button";
 import { userInfoVar } from "@/apollo/apollo-vars";
 import { CURRENT_USER } from "@/graphql/queries/user";

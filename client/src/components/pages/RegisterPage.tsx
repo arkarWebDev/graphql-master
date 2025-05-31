@@ -22,7 +22,7 @@ import {
   CardTitle,
 } from "../ui/card";
 import { useMutation, useReactiveVar } from "@apollo/client";
-import { REGISTER_MUTATION } from "@/graphql/mutationss/auth";
+import { REGISTER_MUTATION } from "@/graphql/mutations/auth";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
 import { isAuthenticatedVar } from "@/apollo/apollo-vars";

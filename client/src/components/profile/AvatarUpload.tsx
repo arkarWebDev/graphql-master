@@ -11,7 +11,7 @@ import { useMutation, useReactiveVar } from "@apollo/client";
 import { userInfoVar } from "@/apollo/apollo-vars";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { AVATAR_UPLOAD_MUTATION } from "@/graphql/mutationss/user";
+import { AVATAR_UPLOAD_MUTATION } from "@/graphql/mutations/user";
 import { toast } from "sonner";
 import { CURRENT_USER } from "@/graphql/queries/user";
 

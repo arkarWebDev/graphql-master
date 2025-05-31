@@ -11,3 +11,9 @@ export const UPDATE_USER_INFO_MUTATION = gql`
     updateUserProfile(userInfo: $userInfo)
   }
 `;
+
+export const UPDATE_NEW_PASSWORD = gql`
+  mutation Mutation($oldPassword: String!, $newPassword: String!) {
+    updateUserPassword(oldPassword: $oldPassword, newPassword: $newPassword)
+  }
+`;
