@@ -1,5 +1,10 @@
 import { Response } from "express";
-import { login, register, uploadAvatar } from "../../controllers/user";
+import {
+  login,
+  register,
+  updateUserProfile,
+  uploadAvatar,
+} from "../../controllers/user";
 import { User, UserInput } from "../../types/user";
 
 export const userResolvers = {
@@ -25,5 +30,10 @@ export const userResolvers = {
       { image }: { image: string },
       { user }: { user: User }
     ) => uploadAvatar(image, user._id),
+    updateUserProfile: async (
+      _: any,
+      { userInfo }: { userInfo: Partial<UserInput> },
+      { user }: { user: User }
+    ) => updateUserProfile(userInfo, user._id),
   },
 };

@@ -12,6 +12,11 @@ export const userTypeDefs = gql`
     email: String!
   }
 
+  input UpdateUserInput {
+    name: String!
+    email: String!
+  }
+
   type User {
     id: ID!
     name: String!
@@ -31,5 +36,6 @@ export const userTypeDefs = gql`
     register(userInput: UserInput!): User
     login(email: String!, password: String!): User
     uploadAvatar(image: String!): Boolean
+    updateUserProfile(userInfo: UpdateUserInput!): Boolean
   }
 `;

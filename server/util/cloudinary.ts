@@ -10,7 +10,9 @@ cloudinary.config({
 });
 
 export const uploadSingleImage = async (image: string, folder_name: string) => {
-  const result = await cloudinary.uploader.upload(image, { folder_name });
+  const result = await cloudinary.uploader.upload(image, {
+    folder: folder_name,
+  });
 
   return {
     img_url: result.secure_url,

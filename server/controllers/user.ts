@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { User } from "../models/user";
-import { UserInput } from "../types/user";
+import { User as UserType, UserInput } from "../types/user";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import errorHandler from "../middlewares/errorHandler";
@@ -62,6 +62,20 @@ export const uploadAvatar = errorHandler(
         public_id: response.public_id,
       },
     });
+
+    return true;
+  }
+);
+
+export const updateUserProfile = errorHandler(
+  async (userInfo: Partial<UserInput>, userId: string) => {
+    const userDoc = await User.findById(userId);
+
+    if (!userDoc) {
+      throw new Error("User not found.");
+    }
+
+    userDoc.set(userInfo).save();
 
     return true;
   }
