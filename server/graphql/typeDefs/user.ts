@@ -38,5 +38,11 @@ export const userTypeDefs = gql`
     uploadAvatar(image: String!): Boolean
     updateUserProfile(userInfo: UpdateUserInput!): Boolean
     updateUserPassword(oldPassword: String!, newPassword: String!): Boolean
+    forgetPassword(email: String!): Boolean
+    resetPassword(
+      token: String!
+      newPassword: String!
+      confirmNewPassword: String!
+    ): Boolean
   }
 `;

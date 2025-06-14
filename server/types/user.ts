@@ -1,5 +1,7 @@
-export type User = {
-  _id?: string;
+import { Document } from "mongoose";
+
+export interface IUser extends Document {
+  _id: string;
   name: string;
   email: string;
   password: string;
@@ -12,7 +14,8 @@ export type User = {
   resetPasswordExpire: Date | undefined;
   createdAt: string;
   updatedAt: string;
-};
+  generatePasswordResetToken(): string;
+}
 
 export type UserInput = {
   name: string;

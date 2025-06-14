@@ -1,16 +1,18 @@
 import { Response } from "express";
 import {
+  forgetPassword,
   login,
   register,
+  resetPassword,
   updateUserPassword,
   updateUserProfile,
   uploadAvatar,
 } from "../../controllers/user";
-import { User, UserInput } from "../../types/user";
+import { IUser, UserInput } from "../../types/user";
 
 export const userResolvers = {
   Query: {
-    currentUser: async (_: any, __: any, { user }: { user: User }) => {
+    currentUser: async (_: any, __: any, { user }: { user: IUser }) => {
       return user;
     },
     logout: async (_: any, __: any, { res }: { res: Response }) => {
@@ -29,12 +31,12 @@ export const userResolvers = {
     uploadAvatar: async (
       _: any,
       { image }: { image: string },
-      { user }: { user: User }
+      { user }: { user: IUser }
     ) => uploadAvatar(image, user._id),
     updateUserProfile: async (
       _: any,
       { userInfo }: { userInfo: Partial<UserInput> },
-      { user }: { user: User }
+      { user }: { user: IUser }
     ) => updateUserProfile(userInfo, user._id),
     updateUserPassword: async (
       _: any,
@@ -42,7 +44,17 @@ export const userResolvers = {
         oldPassword,
         newPassword,
       }: { oldPassword: string; newPassword: string },
-      { user }: { user: User }
+      { user }: { user: IUser }
     ) => updateUserPassword(oldPassword, newPassword, user._id),
+    forgetPassword: async (_: any, { email }: { email: string }) =>
+      forgetPassword(email),
+    resetPassword: async (
+      _: any,
+      {
+        token,
+        newPassword,
+        confirmNewPassword,
+      }: { token: string; newPassword: string; confirmNewPassword: string }
+    ) => resetPassword(token, newPassword, confirmNewPassword),
   },
 };

@@ -15,6 +15,8 @@ import LoginPage from "./components/pages/LoginPage.tsx";
 import ProfilePage from "./components/pages/ProfilePage.tsx";
 import DashboardPage from "./components/pages/DashboardPage.tsx";
 import ProtectPage from "./components/pages/ProtectPage.tsx";
+import ResetPassword from "./components/pages/ResetPassword.tsx";
+import ForgetPasswordPage from "./components/pages/ForgetPassword.tsx";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,10 @@ const router = createBrowserRouter([
         element: <LoginPage />,
       },
       {
+        path: "/reset",
+        element: <ForgetPasswordPage />,
+      },
+      {
         path: "/profile",
         element: (
           <ProtectPage>
@@ -52,6 +58,10 @@ const router = createBrowserRouter([
             <DashboardPage />
           </ProtectPage>
         ),
+      },
+      {
+        path: "/reset-password/:token",
+        element: <ResetPassword />,
       },
     ],
   },

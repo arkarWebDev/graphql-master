@@ -1,4 +1,3 @@
-import { loginSchema } from "@/schema/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -22,14 +21,15 @@ import {
   CardTitle,
 } from "../ui/card";
 import { useMutation, useReactiveVar } from "@apollo/client";
-import { LOGIN_MUTATION } from "@/graphql/mutations/auth";
 import { toast } from "sonner";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { CURRENT_USER } from "@/graphql/queries/user";
 import { isAuthenticatedVar } from "@/apollo/apollo-vars";
 import { useEffect } from "react";
+import { forgetPassword as forgetPasswordType } from "@/schema/user";
+import { FORGET_PASSWORD_MUTATION } from "@/graphql/mutations/user";
 
-const LoginPage = () => {
+const ForgetPasswordPage = () => {
   const naviagte = useNavigate();
   const isAuthenticated = useReactiveVar(isAuthenticatedVar);
 
@@ -37,28 +37,25 @@ const LoginPage = () => {
     if (isAuthenticated) naviagte("/");
   }, [isAuthenticated]);
 
-  const [login, { loading }] = useMutation(LOGIN_MUTATION, {
+  const [forgetPassword, { loading }] = useMutation(FORGET_PASSWORD_MUTATION, {
     onCompleted() {
-      toast.success("Login successful.");
-      return naviagte("/");
+      toast.success("Password reset email sent!");
     },
     refetchQueries: [CURRENT_USER],
   });
 
-  const form = useForm<z.infer<typeof loginSchema>>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<z.infer<typeof forgetPasswordType>>({
+    resolver: zodResolver(forgetPasswordType),
     defaultValues: {
       email: "",
-      password: "",
     },
   });
 
-  async function onSubmit(values: z.infer<typeof loginSchema>) {
+  async function onSubmit(values: z.infer<typeof forgetPasswordType>) {
     const email = values.email;
-    const password = values.password;
     try {
-      await login({
-        variables: { email, password },
+      await forgetPassword({
+        variables: { email },
       });
     } catch (err: any) {
       console.log(err.message);
@@ -72,10 +69,8 @@ const LoginPage = () => {
     <section className="layout w-1/4 mt-20">
       <Card>
         <CardHeader>
-          <CardTitle>Login to account</CardTitle>
-          <CardDescription>
-            Login your existing account form here
-          </CardDescription>
+          <CardTitle>Password Recovery</CardTitle>
+          <CardDescription>Just know your email ?; Don't worry</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -96,29 +91,8 @@ const LoginPage = () => {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input type="password" placeholder="******" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      <Link
-                        to={"/reset"}
-                        className="text-xs font-medium text-gray-500 underline"
-                      >
-                        Forgot password?
-                      </Link>
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <Button type="submit" className="w-full" disabled={loading}>
-                Login
+                {loading ? "loading ..." : "Reset Password"}
               </Button>
             </form>
           </Form>
@@ -128,4 +102,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ForgetPasswordPage;

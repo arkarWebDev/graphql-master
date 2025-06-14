@@ -24,3 +24,24 @@ export const updateUserPassword = z
     message: "Passwords don't match.",
     path: ["confirmPassword"],
   });
+
+export const forgetPassword = z.object({
+  email: z
+    .string()
+    .email({ message: "Please enter a vaild email address." })
+    .toLowerCase(),
+});
+
+export const resetPassword = z
+  .object({
+    newPassword: z
+      .string()
+      .min(6, { message: "Password must have at least 6 characters." }),
+    confirmNewPassword: z.string({
+      required_error: "Please enter password again.",
+    }),
+  })
+  .refine((data) => data.newPassword === data.confirmNewPassword, {
+    message: "Passwords don't match.",
+    path: ["confirmNewPassword"],
+  });
