@@ -33,8 +33,23 @@ export const roomTypeDefs = gql`
     location: String!
   }
 
+  input PriceFilter {
+    gt: Int
+    gte: Int
+    lt: Int
+    lte: Int
+  }
+
+  input RoomFilters {
+    type: String
+    pricePerNight: PriceFilter
+    capacity: Int
+    isAvailable: Boolean
+    location: String
+  }
+
   type Query {
-    getAllRooms(query: String): [Room]
+    getAllRooms(query: String, filters: RoomFilters): [Room]
     getRoomById(roomId: String!): Room
   }
 

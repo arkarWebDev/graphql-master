@@ -17,3 +17,11 @@ type RoomImage = {
   url: string;
   public_id: string;
 };
+
+export type RoomFilters = {
+  type?: string;
+  pricePerNight?: number;
+  capacity?: number;
+  isAvailable?: boolean;
+  location?: string;
+};
