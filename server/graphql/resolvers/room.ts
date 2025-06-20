@@ -9,7 +9,8 @@ import { Room } from "../../types/room";
 
 export const roomResolvers = {
   Query: {
-    getAllRooms: async () => await getAllRooms(),
+    getAllRooms: async (_: any, { query }: { query: string }) =>
+      await getAllRooms(query),
     getRoomById: async (_: any, { roomId }: { roomId: string }) =>
       await getRoomById(roomId),
   },

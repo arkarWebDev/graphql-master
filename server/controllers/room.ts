@@ -1,12 +1,14 @@
 import errorHandler from "../middlewares/errorHandler";
 import { Room } from "../models/room";
 import { Room as RoomType } from "../types/room";
+import APIFilters from "../util/apiFilters";
 import { NotFoundError } from "../util/not-found";
 
 import { GraphQLError } from "graphql";
 
-export const getAllRooms = errorHandler(async () => {
-  const rooms = await Room.find();
+export const getAllRooms = errorHandler(async (query: string) => {
+  const apiFilters = new APIFilters(Room).search(query);
+  const rooms = await apiFilters.model;
   if (rooms.length === 0) {
     throw new NotFoundError("Rooms are not found.");
   }
