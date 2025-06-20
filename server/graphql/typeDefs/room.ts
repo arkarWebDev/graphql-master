@@ -48,8 +48,22 @@ export const roomTypeDefs = gql`
     location: String
   }
 
+  type PaginateType {
+    totalRoomCount: Int
+    perPage: Int
+  }
+
+  type RoomsWithPaginate {
+    rooms: [Room]
+    pagination: PaginateType
+  }
+
   type Query {
-    getAllRooms(query: String, filters: RoomFilters): [Room]
+    getAllRooms(
+      query: String
+      filters: RoomFilters
+      page: Int
+    ): RoomsWithPaginate
     getRoomById(roomId: String!): Room
   }
 

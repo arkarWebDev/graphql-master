@@ -7,13 +7,19 @@ import { NotFoundError } from "../util/not-found";
 import { GraphQLError } from "graphql";
 
 export const getAllRooms = errorHandler(
-  async (query: string, filters: RoomFilters) => {
+  async (query: string, filters: RoomFilters, page: number) => {
+    const perPage = 5;
     const apiFilters = new APIFilters(Room).search(query).filters(filters);
-    const rooms = await apiFilters.model;
+
+    let rooms = await apiFilters.model;
+    const totalRoomCount = rooms.length;
+    apiFilters.pagination(page, perPage);
+
+    rooms = await apiFilters.model.clone();
     if (rooms.length === 0) {
       throw new NotFoundError("Rooms are not found.");
     }
-    return rooms;
+    return { rooms, pagination: { totalRoomCount, perPage } };
   }
 );
 
