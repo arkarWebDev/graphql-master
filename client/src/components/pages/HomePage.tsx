@@ -9,9 +9,23 @@ const HomePage = () => {
   const [searchParams] = useSearchParams();
 
   const query = searchParams.get("filter");
+  const location = searchParams.get("location");
+  const type = searchParams.get("type");
+  const capacity = searchParams.get("capacity");
+  const isAvailable = searchParams.get("available");
+
+  const filters = {
+    ...(capacity && { capacity }),
+    ...(type && { type }),
+    ...(location && { location }),
+    ...(isAvailable !== null && { isAvailable: isAvailable === "true" }),
+  };
+
+  console.log(filters);
 
   const variables = {
     query,
+    filters,
   };
 
   const { data, loading, error } = useQuery(GET_ALL_ROOMS, { variables });
