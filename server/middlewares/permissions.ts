@@ -14,6 +14,18 @@ export const permissions = shield(
   {
     Query: {
       currentUser: isAuthenticated,
+      logout: isAuthenticated,
+    },
+    Mutation: {
+      createNewRoom: and(isAuthenticated, isAdmin),
+      updateRoom: and(isAuthenticated, isAdmin),
+      deleteRoom: and(isAuthenticated, isAdmin),
+
+      uploadAvatar: isAuthenticated,
+      updateUserProfile: isAuthenticated,
+      updateUserPassword: isAuthenticated,
+      forgetPassword: isAuthenticated,
+      resetPassword: isAuthenticated,
     },
   },
   { debug: true }
