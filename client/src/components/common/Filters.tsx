@@ -8,7 +8,7 @@ import {
 } from "../ui/card";
 import { Input } from "../ui/input";
 import { Search, X } from "lucide-react";
-import { useNavigate, useSearchParams } from "react-router";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 import { updateSearchParams } from "@/lib/helpers";
 import { Count, Locations, Types } from "@/lib/FiltersData";
 import { Checkbox } from "../ui/checkbox";
@@ -16,6 +16,7 @@ import { Checkbox } from "../ui/checkbox";
 function Filters() {
   const [searchKey, setSearchKey] = useState<string>("");
   let [searchParams] = useSearchParams();
+  const location = useLocation();
 
   const [filters, setFilters] = useState({
     location: searchParams.get("location"),
@@ -71,6 +72,17 @@ function Filters() {
       navigate(url);
     }
   }, [searchKey]);
+
+  useEffect(() => {
+    if (location.pathname === "/" && !location.search) {
+      setFilters({
+        capacity: null,
+        type: null,
+        available: null,
+        location: null,
+      });
+    }
+  }, [location]);
 
   return (
     <Card className="col-span-1 h-fit">

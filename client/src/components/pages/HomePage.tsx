@@ -5,6 +5,7 @@ import RoomCard from "@/components/home/RoomCard";
 import Filters from "../common/Filters";
 import { useSearchParams } from "react-router";
 import Pagination from "../common/Pagination";
+import { Telescope } from "lucide-react";
 
 const HomePage = () => {
   const [searchParams] = useSearchParams();
@@ -23,8 +24,6 @@ const HomePage = () => {
     ...(isAvailable !== null && { isAvailable: isAvailable === "true" }),
   };
 
-  console.log(filters);
-
   const variables = {
     query,
     filters,
@@ -32,7 +31,6 @@ const HomePage = () => {
   };
 
   const { data, loading, error } = useQuery(GET_ALL_ROOMS, { variables });
-
   return (
     <main className="layout grid grid-cols-4 gap-6">
       <Filters />
@@ -42,6 +40,14 @@ const HomePage = () => {
           Discover the most trending hotels for unforgettable experience.{" "}
         </p>
         <div className="mt-10">
+          {!loading && data?.getAllRooms?.rooms.length === undefined && (
+            <div className="w-full h-[50vh] flex items-center justify-center">
+              <div>
+                <Telescope className="w-40 h-40" />
+                <h2 className="text-xl font-extrabold">404 : Not Found.</h2>
+              </div>
+            </div>
+          )}
           {loading && <p>Loading ...</p>}
           {!loading && data?.getAllRooms.rooms && (
             <section className="grid grid-cols-3 gap-4">
@@ -51,10 +57,15 @@ const HomePage = () => {
             </section>
           )}
         </div>
-        <Pagination
-          totalRoomCount={data?.getAllRooms?.pagination?.totalRoomCount}
-          perPage={data?.getAllRooms?.pagination?.perPage}
-        />
+        {!loading &&
+          data?.getAllRooms?.rooms.length !== undefined &&
+          data?.getAllRooms?.pagination?.totalRoomCount >
+            data?.getAllRooms?.pagination?.perPage && (
+            <Pagination
+              totalRoomCount={data?.getAllRooms?.pagination?.totalRoomCount}
+              perPage={data?.getAllRooms?.pagination?.perPage}
+            />
+          )}
       </div>
     </main>
   );
