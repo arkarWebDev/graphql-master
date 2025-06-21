@@ -124,6 +124,6 @@
     @apply bg-background text-foreground;
   }
   .layout {
-    @apply max-w-5xl mx-auto;
+    @apply max-w-6xl mx-auto;
   }
 }

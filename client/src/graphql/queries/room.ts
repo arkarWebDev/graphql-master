@@ -1,16 +1,22 @@
 import { gql } from "@apollo/client";
 
 export const GET_ALL_ROOMS = gql`
-  query GetAllRooms {
-    getAllRooms {
-      id
-      title
-      images {
-        url
+  query GetAllRooms($query: String, $page: Int, $filters: RoomFilters) {
+    getAllRooms(query: $query, page: $page, filters: $filters) {
+      pagination {
+        perPage
+        totalRoomCount
       }
-      location
-      pricePerNight
-      reviews
+      rooms {
+        id
+        title
+        images {
+          url
+        }
+        location
+        pricePerNight
+        reviews
+      }
     }
   }
 `;

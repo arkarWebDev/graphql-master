@@ -8,7 +8,7 @@ import { GraphQLError } from "graphql";
 
 export const getAllRooms = errorHandler(
   async (query: string, filters: RoomFilters, page: number) => {
-    const perPage = 5;
+    const perPage = 6;
     const apiFilters = new APIFilters(Room).search(query).filters(filters);
 
     let rooms = await apiFilters.model;
