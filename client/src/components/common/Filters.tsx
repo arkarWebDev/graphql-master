@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -37,10 +37,7 @@ function Filters() {
   };
 
   const handleClear = () => {
-    searchParams.delete("filter");
     setSearchKey("");
-    const url = `${window.location.pathname}?${searchParams.toString()}`;
-    navigate(url);
   };
 
   const updateURL = (filters: any) => {
@@ -66,6 +63,14 @@ function Filters() {
       return updatedFilters;
     });
   };
+
+  useEffect(() => {
+    if (searchKey.trim().length === 0) {
+      searchParams.delete("filter");
+      const url = `${window.location.pathname}?${searchParams.toString()}`;
+      navigate(url);
+    }
+  }, [searchKey]);
 
   return (
     <Card className="col-span-1 h-fit">
