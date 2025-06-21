@@ -4,6 +4,7 @@ import { Room } from "../../types/Room";
 import RoomCard from "@/components/home/RoomCard";
 import Filters from "../common/Filters";
 import { useSearchParams } from "react-router";
+import Pagination from "../common/Pagination";
 
 const HomePage = () => {
   const [searchParams] = useSearchParams();
@@ -13,6 +14,7 @@ const HomePage = () => {
   const type = searchParams.get("type");
   const capacity = searchParams.get("capacity");
   const isAvailable = searchParams.get("available");
+  const page = parseInt(searchParams.get("page") || "1", 10);
 
   const filters = {
     ...(capacity && { capacity }),
@@ -26,6 +28,7 @@ const HomePage = () => {
   const variables = {
     query,
     filters,
+    page,
   };
 
   const { data, loading, error } = useQuery(GET_ALL_ROOMS, { variables });
@@ -48,6 +51,10 @@ const HomePage = () => {
             </section>
           )}
         </div>
+        <Pagination
+          totalRoomCount={data?.getAllRooms?.pagination?.totalRoomCount}
+          perPage={data?.getAllRooms?.pagination?.perPage}
+        />
       </div>
     </main>
   );

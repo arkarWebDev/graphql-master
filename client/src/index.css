@@ -126,4 +126,10 @@
   .layout {
     @apply max-w-6xl mx-auto;
   }
+  .pagination ul {
+    @apply space-x-3;
+  }
+  .pagination ul li .disabled {
+    @apply text-red-600;
+  }
 }
