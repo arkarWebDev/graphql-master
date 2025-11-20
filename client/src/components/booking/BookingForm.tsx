@@ -1,0 +1,208 @@
+import { userInfoVar } from "@/apollo/apollo-vars";
+import { bookingFormSchema } from "@/schema/booking";
+import { useReactiveVar } from "@apollo/client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router";
+import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
+import { RangeCalendar } from "./RangeCalendar";
+import { Textarea } from "../ui/textarea";
+import { DateRange } from "react-day-picker";
+import { calculateAmount, getDaysOfRent } from "@/lib/helpers";
+
+interface Props {
+  dates?: DateRange | undefined;
+  disabledDates?: string[];
+  rentPerDay: number;
+}
+
+function BookingForm({ dates, disabledDates, rentPerDay }: Props) {
+  const user = useReactiveVar(userInfoVar);
+  const navigate = useNavigate();
+
+  const form = useForm<z.infer<typeof bookingFormSchema>>({
+    resolver: zodResolver(bookingFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      additionalNote: "",
+      dateRange: {
+        from: undefined,
+        to: undefined,
+      },
+    },
+  });
+
+  const dateRange = form.watch("dateRange");
+
+  const [daysOfRent, setDaysOfRent] = useState(0);
+  const [amount, setAmount] = useState({
+    tax: 0,
+    discount: 0,
+    rent: 0,
+    total: 0,
+  });
+
+  useEffect(() => {
+    setAmount(calculateAmount(rentPerDay, daysOfRent));
+  }, [daysOfRent, rentPerDay]);
+
+  useEffect(() => {
+    const days = getDaysOfRent(dateRange);
+    setDaysOfRent(days);
+  }, [dateRange]);
+
+  useEffect(() => {
+    if (user) {
+      form.reset({
+        ...form.getValues(),
+        name: user.name,
+        email: user.email,
+      });
+    }
+  }, [user]);
+
+  function onSubmit(values: z.infer<typeof bookingFormSchema>) {
+    // const { dateRange, name, email, additionalNote } = values;
+    console.log(values);
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>New Booking</CardTitle>
+        <CardDescription>Enter the details to rent this room.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Full name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Email address" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="dateRange"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Booking dates</FormLabel>
+                  <FormControl>
+                    <RangeCalendar
+                      dates={dates}
+                      disabledDates={disabledDates}
+                      onDateChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="additionalNote"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Additional note</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      {...field}
+                      placeholder="Type your additional note here."
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div>
+              <h2 className="text-lg font-semibold">Summary</h2>
+              <p className="mb-4 text-sm text-secondary-foreground">
+                Check and confirm your booking
+              </p>
+              <div className=" space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span>Days of Rent:</span>
+                  <span className="font-medium"> {daysOfRent}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span>Rent per Day:</span>
+                  <span className="font-medium"> {rentPerDay}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span>Toatal Rent:</span>
+                  <span className="font-medium"> {amount.rent.toFixed(2)}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span>Tax (0.6%):</span>
+                  <span className="font-medium"> {amount.tax.toFixed(2)}</span>
+                </div>
+                <hr />
+                <div className="flex items-center justify-between">
+                  <span>Est. Total:</span>
+                  <span className="font-bold">{amount.total.toFixed(2)}</span>
+                </div>
+              </div>
+            </div>
+            {user && (
+              <Button type="submit" className="w-full">
+                Place Booking
+              </Button>
+            )}
+            {!user && (
+              <Button
+                type="button"
+                className="w-full"
+                variant={"secondary"}
+                asChild
+              >
+                <Link to={"/login"}>Login to rent</Link>
+              </Button>
+            )}
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
+  );
+}
+
+export default BookingForm;
