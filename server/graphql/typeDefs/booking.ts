@@ -13,12 +13,6 @@ export const bookingTypeDefs = gql`
     total: Float!
   }
 
-  input PaymentInfoInput {
-    id: String
-    status: String
-    method: String
-  }
-
   input BookingInput {
     room: ID!
     startDate: String!
@@ -27,7 +21,6 @@ export const bookingTypeDefs = gql`
     amount: AmountInput!
     daysOfRent: Int!
     rentPerDay: Float!
-    paymentInfo: PaymentInfoInput!
     additionalNote: String
   }
 

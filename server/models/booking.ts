@@ -46,19 +46,16 @@ const bookingSchema = new mongoose.Schema<IBooking>(
       required: true,
     },
     paymentInfo: {
-      required: true,
       type: {
         id: String,
         status: {
           type: String,
           enum: { values: PaymentStatus, message: "Invaild payment status" },
           default: "pending",
-          required: true,
         },
         method: {
           type: String,
           enum: { values: PaymentMethods, message: "Invaild payment method" },
-          required: true,
         },
       },
     },

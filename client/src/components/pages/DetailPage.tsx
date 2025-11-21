@@ -99,7 +99,7 @@ const DetailPage = () => {
             </div>
           </div>
           <div className=" col-span-3">
-            <BookingForm rentPerDay={room?.pricePerNight!} />
+            <BookingForm rentPerDay={room?.pricePerNight!} roomId={room?.id!} />
           </div>
         </div>
       )}

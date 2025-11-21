@@ -48,10 +48,5 @@ export type BookingInput = {
   };
   daysOfRent: number;
   rentPerDay: number;
-  paymentInfo: {
-    id: string;
-    status: string;
-    method: string;
-  };
   additionalNote?: string;
 };
