@@ -1,5 +1,5 @@
 import { GET_BOOKING_BY_ID } from "@/graphql/queries/booking";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Link, useParams } from "react-router";
 import Loader from "../common/Loader";
 import NotFound from "../common/NotFound";
@@ -14,6 +14,8 @@ import { CreditCard, Wallet } from "lucide-react";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { UPDATE_BOOKING_PAYMENT } from "@/graphql/mutations/booking";
+import { toast } from "sonner";
 
 function PaymentPage() {
   const params = useParams();
@@ -21,6 +23,12 @@ function PaymentPage() {
 
   const { data, loading, error } = useQuery(GET_BOOKING_BY_ID, {
     variables: { bookingId: params.id },
+  });
+
+  const [updateBookingPayment] = useMutation(UPDATE_BOOKING_PAYMENT, {
+    onCompleted: () => {
+      toast.success("Booking payment method confirmed.");
+    },
   });
 
   const bookingData = data?.getBookingById;
@@ -35,6 +43,20 @@ function PaymentPage() {
 
   const changePaymentOption = (opt: "card" | "cash") => {
     setOption(opt);
+  };
+
+  const paymentConfirmHandler = async () => {
+    if (option === "cash") {
+      const bookingInput = {
+        paymentInfo: {
+          method: "cash",
+        },
+      };
+
+      await updateBookingPayment({
+        variables: { bookingId: params?.id, bookingInput },
+      });
+    }
   };
 
   return (
@@ -114,7 +136,10 @@ function PaymentPage() {
                 <p>Pay with card</p>
               </div>
             </div>
-            <Button className="w-full mt-2">
+            <Button
+              className="w-full mt-2 cursor-pointer"
+              onClick={paymentConfirmHandler}
+            >
               Booking confirm with {option === "cash" ? "cash" : "card"}
             </Button>
           </div>

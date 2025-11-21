@@ -46,6 +46,11 @@ export type BookingInput = {
     tax: number;
     total: number;
   };
+  paymentInfo: {
+    status: string;
+    id: string;
+    method: "cash" | "card";
+  };
   daysOfRent: number;
   rentPerDay: number;
   additionalNote?: string;

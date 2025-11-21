@@ -30,3 +30,25 @@ export const getBookingById = errorHandler(
     return booking;
   }
 );
+
+export const updateBookingPayment = errorHandler(
+  async (
+    bookingId: string,
+    bookingInput: Partial<BookingInput>,
+    user: IUser
+  ) => {
+    const booking = await Booking.findById(bookingId).populate("room");
+
+    if (!booking) {
+      throw new NotFoundError("Booking not found.");
+    }
+
+    if (!user.role?.includes("admin") && booking.user.toString() !== user.id) {
+      throw new Error("You don't have permission to do this");
+    }
+
+    await booking.set(bookingInput).save();
+
+    return true;
+  }
+);

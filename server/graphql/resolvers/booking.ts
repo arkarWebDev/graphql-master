@@ -1,5 +1,9 @@
 import { Query } from "mongoose";
-import { createNewBooking, getBookingById } from "../../controllers/booking";
+import {
+  createNewBooking,
+  getBookingById,
+  updateBookingPayment,
+} from "../../controllers/booking";
 import { BookingInput } from "../../types/booking";
 import { IUser } from "../../types/user";
 
@@ -17,5 +21,13 @@ export const bookingResolvers = {
       { bookingInput }: { bookingInput: BookingInput },
       { user }: { user: IUser }
     ) => createNewBooking(bookingInput, user.id),
+    updateBookingPayment: async (
+      _: any,
+      {
+        bookingId,
+        bookingInput,
+      }: { bookingId: string; bookingInput: Partial<BookingInput> },
+      { user }: { user: IUser }
+    ) => updateBookingPayment(bookingId, bookingInput, user),
   },
 };
