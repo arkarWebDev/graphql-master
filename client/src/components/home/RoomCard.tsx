@@ -10,7 +10,7 @@ type RoomCardProps = {
 const RoomCard = ({ room }: RoomCardProps) => {
   const [loading, setLoading] = useState(true);
   return (
-    <Link to={`/room/${room.id}`}>
+    <Link to={`/rooms/${room.id}`}>
       {loading && (
         <div className="w-full aspect-video bg-gray-300 flex items-center justify-center rounded-lg animate-pulse">
           <p>loading</p>
