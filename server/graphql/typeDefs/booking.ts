@@ -58,6 +58,7 @@ export const bookingTypeDefs = gql`
 
   type Query {
     getBookingById(bookingId: String!): Booking!
+    getBookedDatesById(roomId: String!): [String]!
   }
 
   input PaymentInfoInput {

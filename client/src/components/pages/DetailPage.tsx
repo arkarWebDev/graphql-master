@@ -19,10 +19,12 @@ const DetailPage = () => {
   const params = useParams<{ id: string }>();
 
   const { data, loading, error } = useQuery(GET_SINGLE_ROOM, {
-    variables: { roomId: params.id },
+    variables: { roomId: params.id, getBookedDatesByIdRoomId2: params.id },
   });
 
   const room: Room | undefined = data?.getRoomById;
+
+  const disabledDates = data?.getBookedDatesById;
 
   const items = room
     ? [
@@ -99,7 +101,11 @@ const DetailPage = () => {
             </div>
           </div>
           <div className=" col-span-3">
-            <BookingForm rentPerDay={room?.pricePerNight!} roomId={room?.id!} />
+            <BookingForm
+              rentPerDay={room?.pricePerNight!}
+              roomId={room?.id!}
+              disabledDates={disabledDates}
+            />
           </div>
         </div>
       )}

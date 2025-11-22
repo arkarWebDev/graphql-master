@@ -13,15 +13,24 @@ import { ArrowRightLeft, CalendarDays, ChevronDown } from "lucide-react";
 import { useSearchParams } from "react-router";
 import { useEffect, useState } from "react";
 import { formatDate } from "@/lib/helpers";
+import { addDays, isSameDay } from "date-fns";
+import { toast } from "sonner";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   dates?: DateRange | undefined;
   disabledDates?: string[];
   onDateChange: (date: DateRange | undefined) => void;
+  onAvailabilityChange?: (available: boolean) => void;
 }
 
-export function RangeCalendar({ dates, disabledDates, onDateChange }: Props) {
+export function RangeCalendar({
+  dates,
+  disabledDates,
+  onDateChange,
+  onAvailabilityChange,
+}: Props) {
   const [searchParams] = useSearchParams();
+  const [isAvailable, setIsAvailable] = useState(true);
   const startDate = searchParams.get("startDate");
   const endDate = searchParams.get("endDate");
 
@@ -56,46 +65,91 @@ export function RangeCalendar({ dates, disabledDates, onDateChange }: Props) {
       setInternalDate(newDate);
     }
 
+    if (!newDate?.from || !newDate?.to) {
+      setInternalDate(newDate);
+      onAvailabilityChange?.(true);
+      onDateChange(newDate);
+      return;
+    }
+
+    if (hasDisabledDatesInRange(newDate)) {
+      toast.error("Dates are already booked by others.");
+      setIsAvailable(false);
+      onAvailabilityChange?.(false);
+      return;
+    }
+
+    setIsAvailable(true);
+    onAvailabilityChange?.(true);
+    setInternalDate(newDate);
     onDateChange(newDate);
   };
 
-  const parsedDisabledDates = [];
+  const parsedDisabledDates =
+    disabledDates?.map((timestamp) => new Date(parseInt(timestamp))) || [];
+
+  const isDiabledDate = (date: Date) => {
+    return parsedDisabledDates.some((disableDate) =>
+      isSameDay(disableDate, date)
+    );
+  };
+
+  const hasDisabledDatesInRange = (range: DateRange | undefined) => {
+    if (!range?.from || !range.to) return false;
+
+    let startDate = new Date(range.from);
+
+    while (startDate <= range.to) {
+      if (isDiabledDate(startDate)) return true;
+      startDate = addDays(startDate, 1);
+    }
+
+    return false;
+  };
 
   return (
-    <Popover>
-      <PopoverTrigger>
-        <div className="flex items-center gap-2 border p-2 rounded-md text-sm justify-between">
-          <div className="flex items-center gap-2">
-            <CalendarDays />
-            <span className="flex items-center gap-2">
-              {currentDate?.from ? (
-                currentDate.to ? (
-                  <>
-                    {formatDate(currentDate.from)}{" "}
-                    <ArrowRightLeft className="w-4 h-4" />
-                    {formatDate(currentDate.to)}
-                  </>
+    <div className="w-full">
+      <Popover>
+        <PopoverTrigger className="w-full">
+          <div className="flex items-center gap-2 border p-2 rounded-md text-sm justify-between">
+            <div className="flex items-center gap-2">
+              <CalendarDays />
+              <span className="flex items-center gap-2">
+                {currentDate?.from ? (
+                  currentDate.to ? (
+                    <>
+                      {formatDate(currentDate.from)}{" "}
+                      <ArrowRightLeft className="w-4 h-4" />
+                      {formatDate(currentDate.to)}
+                    </>
+                  ) : (
+                    <>{formatDate(currentDate.from)}</>
+                  )
                 ) : (
-                  <>{formatDate(currentDate.from)}</>
-                )
-              ) : (
-                <span>Select booking dates</span>
-              )}
-            </span>
-          </div>
+                  <span>Select booking dates</span>
+                )}
+              </span>
+            </div>
 
-          <ChevronDown className="w-4 h-4" />
+            <ChevronDown className="w-4 h-4" />
+          </div>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="start">
+          <Calendar
+            mode="range"
+            defaultMonth={currentDate?.from}
+            selected={currentDate}
+            onSelect={handleDateChange}
+            numberOfMonths={2}
+            disabled={[...parsedDisabledDates, { before: new Date() }]}
+          />
+        </PopoverContent>
+      </Popover>
+      {!isAvailable && (
+        <div className="text-sm font-medium bg-red-200 text-red-600 py-2 px-4 mt-2 rounded-md">
+          Dates are already booked by others.
         </div>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
-        <Calendar
-          mode="range"
-          defaultMonth={currentDate?.from}
-          selected={currentDate}
-          onSelect={handleDateChange}
-          numberOfMonths={2}
-        />
-      </PopoverContent>
-    </Popover>
+      )}
+    </div>
   );
 }

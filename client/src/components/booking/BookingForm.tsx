@@ -42,6 +42,16 @@ function BookingForm({ dates, disabledDates, rentPerDay, roomId }: Props) {
   const user = useReactiveVar(userInfoVar);
   const navigate = useNavigate();
 
+  const [daysOfRent, setDaysOfRent] = useState(0);
+  const [amount, setAmount] = useState({
+    tax: 0,
+    discount: 0,
+    rent: 0,
+    total: 0,
+  });
+
+  const [isBookingAvailable, setIsBookingAvailable] = useState(true);
+
   const form = useForm<z.infer<typeof bookingFormSchema>>({
     resolver: zodResolver(bookingFormSchema),
     defaultValues: {
@@ -56,14 +66,6 @@ function BookingForm({ dates, disabledDates, rentPerDay, roomId }: Props) {
   });
 
   const dateRange = form.watch("dateRange");
-
-  const [daysOfRent, setDaysOfRent] = useState(0);
-  const [amount, setAmount] = useState({
-    tax: 0,
-    discount: 0,
-    rent: 0,
-    total: 0,
-  });
 
   useEffect(() => {
     setAmount(calculateAmount(rentPerDay, daysOfRent));
@@ -170,6 +172,7 @@ function BookingForm({ dates, disabledDates, rentPerDay, roomId }: Props) {
                       dates={dates}
                       disabledDates={disabledDates}
                       onDateChange={field.onChange}
+                      onAvailabilityChange={setIsBookingAvailable}
                     />
                   </FormControl>
                   <FormMessage />
@@ -197,7 +200,7 @@ function BookingForm({ dates, disabledDates, rentPerDay, roomId }: Props) {
               <p className="mb-4 text-sm text-secondary-foreground">
                 Check and confirm your booking
               </p>
-              <div className=" space-y-1.5">
+              <div className=" space-y-1.5 text-sm">
                 <div className="flex items-center justify-between">
                   <span>Days of Rent:</span>
                   <span className="font-medium"> {daysOfRent}</span>
@@ -222,7 +225,11 @@ function BookingForm({ dates, disabledDates, rentPerDay, roomId }: Props) {
               </div>
             </div>
             {user && (
-              <Button type="submit" className="w-full" disabled={loading}>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={loading || !isBookingAvailable || daysOfRent <= 0}
+              >
                 Place Booking
               </Button>
             )}

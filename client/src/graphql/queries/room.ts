@@ -22,7 +22,7 @@ export const GET_ALL_ROOMS = gql`
 `;
 
 export const GET_SINGLE_ROOM = gql`
-  query Query($roomId: String!) {
+  query Query($roomId: String!, $getBookedDatesByIdRoomId2: String!) {
     getRoomById(roomId: $roomId) {
       capacity
       description
@@ -39,5 +39,6 @@ export const GET_SINGLE_ROOM = gql`
       title
       type
     }
+    getBookedDatesById(roomId: $getBookedDatesByIdRoomId2)
   }
 `;
