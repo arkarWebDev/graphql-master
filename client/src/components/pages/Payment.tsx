@@ -1,6 +1,9 @@
-import { GET_BOOKING_BY_ID } from "@/graphql/queries/booking";
+import {
+  GET_BOOKING_BY_ID,
+  GET_BOOKING_BY_USER,
+} from "@/graphql/queries/booking";
 import { useMutation, useQuery } from "@apollo/client";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import Loader from "../common/Loader";
 import NotFound from "../common/NotFound";
 import {
@@ -19,6 +22,7 @@ import { toast } from "sonner";
 
 function PaymentPage() {
   const params = useParams();
+  const navigate = useNavigate();
   const [option, setOption] = useState<"card" | "cash">("cash");
 
   const { data, loading, error } = useQuery(GET_BOOKING_BY_ID, {
@@ -28,7 +32,9 @@ function PaymentPage() {
   const [updateBookingPayment] = useMutation(UPDATE_BOOKING_PAYMENT, {
     onCompleted: () => {
       toast.success("Booking payment method confirmed.");
+      navigate("/bookings");
     },
+    refetchQueries: [GET_BOOKING_BY_USER],
   });
 
   const bookingData = data?.getBookingById;

@@ -56,9 +56,21 @@ export const bookingTypeDefs = gql`
     additionalNote: String
   }
 
+  type BookingMeta {
+    totalBookings: Int!
+    unpaidBookings: Int!
+    needToPay: Float!
+  }
+
+  type BookingListResponse {
+    bookings: [Booking!]!
+    meta: BookingMeta!
+  }
+
   type Query {
     getBookingById(bookingId: String!): Booking!
     getBookedDatesById(roomId: String!): [String]!
+    getBookingByUser: BookingListResponse!
   }
 
   input PaymentInfoInput {

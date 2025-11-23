@@ -19,3 +19,32 @@ export const GET_BOOKING_BY_ID = gql`
     }
   }
 `;
+
+export const GET_BOOKING_BY_USER = gql`
+  query ExampleQuery {
+    getBookingByUser {
+      meta {
+        unpaidBookings
+        totalBookings
+        needToPay
+      }
+      bookings {
+        room {
+          title
+          id
+        }
+        paymentInfo {
+          id
+          method
+          status
+        }
+        startDate
+        endDate
+        amount {
+          total
+        }
+        id
+      }
+    }
+  }
+`;

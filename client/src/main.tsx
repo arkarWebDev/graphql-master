@@ -18,6 +18,7 @@ import ProtectPage from "./components/pages/ProtectPage.tsx";
 import ResetPassword from "./components/pages/ResetPassword.tsx";
 import ForgetPasswordPage from "./components/pages/ForgetPassword.tsx";
 import PaymentPage from "./components/pages/Payment.tsx";
+import Bookings from "./components/pages/Bookings.tsx";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectPage>
             <PaymentPage />
+          </ProtectPage>
+        ),
+      },
+      {
+        path: "/bookings",
+        element: (
+          <ProtectPage>
+            <Bookings />
           </ProtectPage>
         ),
       },
