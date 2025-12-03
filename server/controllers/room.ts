@@ -4,8 +4,6 @@ import { RoomFilters, Room as RoomType } from "../types/room";
 import APIFilters from "../util/apiFilters";
 import { NotFoundError } from "../util/not-found";
 
-import { GraphQLError } from "graphql";
-
 export const getAllRooms = errorHandler(
   async (query: string, filters: RoomFilters, page: number) => {
     const perPage = 6;

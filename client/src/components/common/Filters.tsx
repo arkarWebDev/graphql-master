@@ -10,7 +10,7 @@ import { Input } from "../ui/input";
 import { Search, X } from "lucide-react";
 import { useLocation, useNavigate, useSearchParams } from "react-router";
 import { updateSearchParams } from "@/lib/helpers";
-import { Count, Locations, Types } from "@/lib/FiltersData";
+import { Count, Locations, Types } from "@/lib/filtersData";
 import { Checkbox } from "../ui/checkbox";
 
 function Filters() {
@@ -131,20 +131,6 @@ function Filters() {
                 onCheckedChange={() => handleCheckboxClick("type", typ)}
               />
               <span className="text-sm font-medium text-gray-500">{typ}</span>
-            </div>
-          ))}
-        </div>
-        <h2 className="font-semibold mt-4 mb-2">Capacity</h2>
-        <div className="space-y-2">
-          {Count.map((count, index) => (
-            <div key={index} className="flex items-center gap-2">
-              <Checkbox
-                checked={count.toString() === filters.capacity}
-                onCheckedChange={() =>
-                  handleCheckboxClick("capacity", count.toString())
-                }
-              />
-              <span className="text-sm font-medium text-gray-500">{count}</span>
             </div>
           ))}
         </div>

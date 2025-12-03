@@ -26,17 +26,14 @@ const RoomCard = ({ room }: RoomCardProps) => {
 
       <div className="">
         <h2 className="text-lg font-bold mt-1">{room.title}</h2>
-        <MapPin className="inline w-5 h-5 text-gray-400 mr-1" />
-        <span className="text-sm font-medium text-gray-400">
-          {room.location}
-        </span>
-        <div></div>
-        <Star className="inline w-5 h-5 text-gray-400 mr-1" />
-        <span className="text-sm font-medium text-gray-400">
-          {room.reviews.length} reviews
-        </span>
+        <p className="text-sm">Rating Count</p>
       </div>
-      <p className="font-bold text-xl">$ {room.pricePerNight}</p>
+      <p className="font-bold text-xl">
+        $ {room.pricePerNight}{" "}
+        <span className="text-sm font-medium text-muted-foreground">
+          /night
+        </span>
+      </p>
     </Link>
   );
 };

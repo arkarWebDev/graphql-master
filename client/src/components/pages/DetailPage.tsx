@@ -1,7 +1,7 @@
 import { GET_SINGLE_ROOM } from "@/graphql/queries/room";
 import { Room } from "@/types/Room";
 import { useQuery } from "@apollo/client";
-import { BadgeCheck, CircleX, Hash, House, MapPin, Users } from "lucide-react";
+import { AirVent, MapPin, Soup, WavesLadder, Wifi } from "lucide-react";
 import { useParams } from "react-router";
 
 import {
@@ -14,6 +14,7 @@ import {
 import Loader from "../common/Loader";
 import NotFound from "../common/NotFound";
 import BookingForm from "../booking/BookingForm";
+import { Badge } from "../ui/badge";
 
 const DetailPage = () => {
   const params = useParams<{ id: string }>();
@@ -29,16 +30,20 @@ const DetailPage = () => {
   const items = room
     ? [
         {
-          value: room.capacity,
-          icon: <Users className="w-5 h-5" />,
+          value: "Wifi",
+          icon: <Wifi />,
         },
         {
-          value: room.type,
-          icon: <House className="w-5 h-5" />,
+          value: "A/C",
+          icon: <AirVent />,
         },
         {
-          value: room.location,
-          icon: <MapPin className="w-5 h-5" />,
+          value: "Breakfast",
+          icon: <Soup />,
+        },
+        {
+          value: "Pool",
+          icon: <WavesLadder />,
         },
       ]
     : [];
@@ -71,24 +76,29 @@ const DetailPage = () => {
               </Carousel>
             </div>
             <div className="mt-4">
-              <h2 className="text-2xl font-bold mb-2">{room?.title}</h2>
-              <div className=" flex items-center text-sm font-medium text-gray-400">
-                <Hash className="w-5 h-5" /> {room?.roomNumber}
-                {room?.isAvailable ? (
-                  <BadgeCheck className="w-5 h-5 text-green-500 ms-2" />
-                ) : (
-                  <CircleX className="w-5 h-5 text-red-500 ms-2" />
-                )}
+              <div className="flex items-center gap-2">
+                <h2 className="text-2xl font-bold mb-2">{room?.title}</h2>
+                <Badge variant={"outline"} className="text-xs">
+                  {room?.type}
+                </Badge>
+                <Badge variant={"outline"} className="text-xs">
+                  <MapPin /> <span>{room?.location}</span>
+                </Badge>
               </div>
               <p className="text-sm font-medium text-gray-400 mt-4">
                 {room?.description}
               </p>
-              <p className="text-3xl font-bold my-4">${room?.pricePerNight}</p>
-              <div className="flex items-center justify-center gap-10 border-2 border-gray-400 rounded-md p-4">
+              <p className="text-3xl font-bold my-4">
+                ${room?.pricePerNight}{" "}
+                <span className="text-sm font-medium text-muted-foreground">
+                  /night
+                </span>
+              </p>
+              <div className="grid grid-cols-4 border border-gray-200 rounded-md p-4">
                 {items.map((item, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-center flex-col"
+                    className="flex items-center justify-center flex-col text-muted-foreground"
                   >
                     {item.icon}
                     <span className="text-sm font-medium">{item.value}</span>
@@ -101,11 +111,13 @@ const DetailPage = () => {
             </div>
           </div>
           <div className=" col-span-3">
-            <BookingForm
-              rentPerDay={room?.pricePerNight!}
-              roomId={room?.id!}
-              disabledDates={disabledDates}
-            />
+            {room?.isAvailable && (
+              <BookingForm
+                rentPerDay={room?.pricePerNight!}
+                roomId={room?.id!}
+                disabledDates={disabledDates}
+              />
+            )}
           </div>
         </div>
       )}
