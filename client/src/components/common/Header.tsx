@@ -75,6 +75,9 @@ const Header = () => {
               <DropdownMenuItem>
                 <Link to={"/profile"}>Profile</Link>
               </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link to={"/bookings"}>Bookings</Link>
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={logoutHandler}>
                 <span className="text-red-600">Logout</span>
               </DropdownMenuItem>

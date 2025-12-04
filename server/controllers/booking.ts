@@ -83,7 +83,7 @@ export const getBookingByUser = errorHandler(async (userId: string) => {
   const totalBookings = bookings.length;
 
   const unpaidBookings = bookings.filter(
-    (booking) => booking.paymentInfo.status !== "paid"
+    (booking) => booking.paymentInfo?.status !== "paid"
   );
 
   const needToPay = unpaidBookings.reduce((sum, booking) => {

@@ -6,6 +6,7 @@ export const GET_BOOKING_BY_ID = gql`
       room {
         title
         id
+        pricePerNight
       }
       id
       amount {
@@ -16,6 +17,17 @@ export const GET_BOOKING_BY_ID = gql`
       }
       daysOfRent
       rentPerDay
+      paymentInfo {
+        status
+        method
+        id
+      }
+      customer {
+        email
+        name
+      }
+      endDate
+      startDate
     }
   }
 `;

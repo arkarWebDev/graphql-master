@@ -19,6 +19,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { UPDATE_BOOKING_PAYMENT } from "@/graphql/mutations/booking";
 import { toast } from "sonner";
+import { STRIPE_CHECKOUT_MUTATION } from "@/graphql/mutations/payment";
 
 function PaymentPage() {
   const params = useParams();
@@ -36,6 +37,18 @@ function PaymentPage() {
     },
     refetchQueries: [GET_BOOKING_BY_USER],
   });
+
+  const [stripeCheckoutSession, { loading: checkoutLoading }] = useMutation(
+    STRIPE_CHECKOUT_MUTATION,
+    {
+      onCompleted: (data) => {
+        const checkoutUrl = data?.stripeCheckoutSession?.url;
+        if (checkoutUrl) {
+          window.location.href = checkoutUrl;
+        }
+      },
+    }
+  );
 
   const bookingData = data?.getBookingById;
 
@@ -61,6 +74,12 @@ function PaymentPage() {
 
       await updateBookingPayment({
         variables: { bookingId: params?.id, bookingInput },
+      });
+    }
+
+    if (option === "card") {
+      await stripeCheckoutSession({
+        variables: { bookingId: params.id },
       });
     }
   };
@@ -145,6 +164,7 @@ function PaymentPage() {
             <Button
               className="w-full mt-2 cursor-pointer"
               onClick={paymentConfirmHandler}
+              disabled={checkoutLoading}
             >
               Booking confirm with {option === "cash" ? "cash" : "card"}
             </Button>

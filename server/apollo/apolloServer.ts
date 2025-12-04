@@ -13,14 +13,27 @@ import jwt from "jsonwebtoken";
 import { User } from "../models/user";
 import { bookingTypeDefs } from "../graphql/typeDefs/booking";
 import { bookingResolvers } from "../graphql/resolvers/booking";
+import { paymentTypeDefs } from "../graphql/typeDefs/payment";
+import { paymentResolver } from "../graphql/resolvers/payment";
+import { webhookHandler } from "../controllers/payment";
 
 type JWTPayload = {
   _id: string;
 };
 
 export const startApolloServer = async (app: Application) => {
-  const typeDefs = [roomTypeDefs, userTypeDefs, bookingTypeDefs];
-  const resolvers = [roomResolvers, userResolvers, bookingResolvers];
+  const typeDefs = [
+    roomTypeDefs,
+    userTypeDefs,
+    bookingTypeDefs,
+    paymentTypeDefs,
+  ];
+  const resolvers = [
+    roomResolvers,
+    userResolvers,
+    bookingResolvers,
+    paymentResolver,
+  ];
 
   const schema = makeExecutableSchema({
     typeDefs,
@@ -66,4 +79,16 @@ export const startApolloServer = async (app: Application) => {
       },
     })
   );
+
+  app.post("/api/payment/webhook", async (req: Request, res: Response) => {
+    const signature = req.headers["stripe-signature"];
+    const rawBody = req.rawBody;
+
+    const isSuccess = await webhookHandler(signature, rawBody);
+    if (isSuccess) {
+      res.status(200).json({ success: true });
+    } else {
+      res.status(400).json({ success: false });
+    }
+  });
 };

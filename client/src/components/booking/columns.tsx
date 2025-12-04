@@ -60,7 +60,15 @@ export const columns: ColumnDef<BookingRow>[] = [
 
       return (
         <Button size={"sm"} variant={"outline"} asChild>
-          <Link to={`/bookings/${row.original.id}/payment`}>{label}</Link>
+          <Link
+            to={
+              status === "paid"
+                ? `/invoice/${row.original.id}`
+                : `/bookings/${row.original.id}/payment`
+            }
+          >
+            {label}
+          </Link>
         </Button>
       );
     },
