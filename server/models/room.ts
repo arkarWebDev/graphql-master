@@ -40,11 +40,33 @@ const roomSchema = new mongoose.Schema(
         public_id: String,
       },
     ],
-    reviews: [String],
+    reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }],
   },
   {
     timestamps: true,
   }
 );
+
+roomSchema.virtual("ratings").get(function () {
+  let numberOfReviews = this.reviews.length;
+
+  if (numberOfReviews === 0) {
+    return {
+      value: 5,
+      count: 0,
+    };
+  }
+
+  const toatalRatings = this.reviews.reduce(
+    (sum: number, review: any) => sum + review.rating,
+    0
+  );
+
+  const value = numberOfReviews > 0 ? toatalRatings / numberOfReviews : 0;
+  return {
+    value,
+    count: numberOfReviews,
+  };
+});
 
 export const Room = mongoose.model("Room", roomSchema);

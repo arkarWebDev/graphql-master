@@ -1,6 +1,5 @@
 export const rooms = [
   {
-    id: "2",
     roomNumber: "102",
     type: "Double",
     pricePerNight: 120.0,
@@ -35,7 +34,6 @@ export const rooms = [
   },
 
   {
-    id: "3",
     roomNumber: "103",
     type: "Suite",
     pricePerNight: 250.0,
@@ -70,7 +68,6 @@ export const rooms = [
   },
 
   {
-    id: "4",
     roomNumber: "104",
     type: "Single",
     pricePerNight: 90.0,
@@ -105,7 +102,6 @@ export const rooms = [
   },
 
   {
-    id: "5",
     roomNumber: "105",
     type: "Double",
     pricePerNight: 150.0,
@@ -140,7 +136,6 @@ export const rooms = [
   },
 
   {
-    id: "6",
     roomNumber: "106",
     type: "Suite",
     pricePerNight: 300.0,
@@ -175,7 +170,6 @@ export const rooms = [
   },
 
   {
-    id: "7",
     roomNumber: "107",
     type: "Single",
     pricePerNight: 80.0,
@@ -210,7 +204,6 @@ export const rooms = [
   },
 
   {
-    id: "8",
     roomNumber: "108",
     type: "Double",
     pricePerNight: 130.0,
@@ -245,7 +238,6 @@ export const rooms = [
   },
 
   {
-    id: "9",
     roomNumber: "109",
     type: "Suite",
     pricePerNight: 280.0,
@@ -280,7 +272,6 @@ export const rooms = [
   },
 
   {
-    id: "10",
     roomNumber: "110",
     type: "Single",
     pricePerNight: 95.0,
@@ -315,7 +306,6 @@ export const rooms = [
   },
 
   {
-    id: "11",
     roomNumber: "111",
     type: "Double",
     pricePerNight: 140.0,
@@ -350,7 +340,6 @@ export const rooms = [
   },
 
   {
-    id: "12",
     roomNumber: "112",
     type: "Suite",
     pricePerNight: 320.0,
@@ -385,7 +374,6 @@ export const rooms = [
   },
 
   {
-    id: "13",
     roomNumber: "113",
     type: "Single",
     pricePerNight: 85.0,
@@ -420,7 +408,6 @@ export const rooms = [
   },
 
   {
-    id: "14",
     roomNumber: "114",
     type: "Double",
     pricePerNight: 160.0,
@@ -454,7 +441,6 @@ export const rooms = [
     ],
   },
   {
-    id: "16",
     roomNumber: "116",
     type: "Single",
     pricePerNight: 75.0,
@@ -489,7 +475,6 @@ export const rooms = [
   },
 
   {
-    id: "17",
     roomNumber: "117",
     type: "Double",
     pricePerNight: 145.0,
@@ -524,7 +509,6 @@ export const rooms = [
   },
 
   {
-    id: "18",
     roomNumber: "118",
     type: "Suite",
     pricePerNight: 400.0,
@@ -559,7 +543,6 @@ export const rooms = [
   },
 
   {
-    id: "19",
     roomNumber: "119",
     type: "Single",
     pricePerNight: 70.0,
@@ -594,7 +577,6 @@ export const rooms = [
   },
 
   {
-    id: "20",
     roomNumber: "120",
     type: "Double",
     pricePerNight: 155.0,
@@ -629,7 +611,6 @@ export const rooms = [
   },
 
   {
-    id: "21",
     roomNumber: "121",
     type: "Suite",
     pricePerNight: 360.0,
@@ -664,7 +645,6 @@ export const rooms = [
   },
 
   {
-    id: "22",
     roomNumber: "122",
     type: "Single",
     pricePerNight: 65.0,
@@ -699,7 +679,6 @@ export const rooms = [
   },
 
   {
-    id: "23",
     roomNumber: "123",
     type: "Double",
     pricePerNight: 135.0,
@@ -734,7 +713,6 @@ export const rooms = [
   },
 
   {
-    id: "24",
     roomNumber: "124",
     type: "Suite",
     pricePerNight: 420.0,
@@ -768,7 +746,6 @@ export const rooms = [
     ],
   },
   {
-    id: "25",
     roomNumber: "125",
     type: "Single",
     pricePerNight: 80.0,
@@ -802,7 +779,6 @@ export const rooms = [
     ],
   },
   {
-    id: "26",
     roomNumber: "126",
     type: "Double",
     pricePerNight: 150.0,
@@ -836,7 +812,6 @@ export const rooms = [
     ],
   },
   {
-    id: "27",
     roomNumber: "127",
     type: "Suite",
     pricePerNight: 380.0,
@@ -870,7 +845,6 @@ export const rooms = [
     ],
   },
   {
-    id: "28",
     roomNumber: "128",
     type: "Single",
     pricePerNight: 90.0,
@@ -904,7 +878,6 @@ export const rooms = [
     ],
   },
   {
-    id: "29",
     roomNumber: "129",
     type: "Double",
     pricePerNight: 165.0,
@@ -938,7 +911,6 @@ export const rooms = [
     ],
   },
   {
-    id: "30",
     roomNumber: "130",
     type: "Suite",
     pricePerNight: 450.0,

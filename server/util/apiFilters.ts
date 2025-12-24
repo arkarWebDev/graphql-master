@@ -47,6 +47,11 @@ class APIFilters {
     this.model = this.model.limit(perPage).skip(skipCount);
     return this;
   }
+
+  populate(field: string) {
+    this.model = this.model.populate(field);
+    return this;
+  }
 }
 
 export default APIFilters;

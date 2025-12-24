@@ -1,3 +1,5 @@
+import { IReview } from "./review";
+
 export type Room = {
   id: string;
   roomNumber: string;
@@ -8,10 +10,12 @@ export type Room = {
   capacity: number;
   isAvailable: boolean;
   images: RoomImage[];
-  reviews: string[];
+  reviews: IReview[];
   location: string;
   createdAt: string;
   updatedAt: string;
+  canReview: boolean;
+  ratings: number;
 };
 
 type RoomImage = {

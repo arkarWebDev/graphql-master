@@ -7,7 +7,10 @@ import { NotFoundError } from "../util/not-found";
 export const getAllRooms = errorHandler(
   async (query: string, filters: RoomFilters, page: number) => {
     const perPage = 6;
-    const apiFilters = new APIFilters(Room).search(query).filters(filters);
+    const apiFilters = new APIFilters(Room)
+      .search(query)
+      .filters(filters)
+      .populate("reviews");
 
     let rooms = await apiFilters.model;
     const totalRoomCount = rooms.length;
@@ -27,7 +30,13 @@ export const createNewRoom = errorHandler(async (roomInput: RoomType) => {
 });
 
 export const getRoomById = errorHandler(async (roomId: string) => {
-  const room = await Room.findById(roomId);
+  const room = await Room.findById(roomId).populate({
+    path: "reviews",
+    populate: {
+      path: "user",
+      model: "User",
+    },
+  });
 
   if (!room) {
     throw new NotFoundError("Room not found.");

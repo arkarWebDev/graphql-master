@@ -15,13 +15,19 @@ import Loader from "../common/Loader";
 import NotFound from "../common/NotFound";
 import BookingForm from "../booking/BookingForm";
 import { Badge } from "../ui/badge";
+import Reviews from "../review/reviews";
 
 const DetailPage = () => {
   const params = useParams<{ id: string }>();
 
-  const { data, loading, error } = useQuery(GET_SINGLE_ROOM, {
-    variables: { roomId: params.id, getBookedDatesByIdRoomId2: params.id },
+  const { data, loading, error, refetch } = useQuery(GET_SINGLE_ROOM, {
+    variables: {
+      roomId: params.id,
+      getBookedDatesByIdRoomId2: params.id,
+      reviewRoomId: params.id,
+    },
   });
+  console.log(data);
 
   const room: Room | undefined = data?.getRoomById;
 
@@ -53,7 +59,7 @@ const DetailPage = () => {
   }
 
   return (
-    <main className="layout">
+    <main className="layout mb-20">
       {loading && <Loader />}
       {!loading && data?.getRoomById && (
         <div className="grid grid-cols-8 w-full gap-4">
@@ -85,6 +91,7 @@ const DetailPage = () => {
                   <MapPin /> <span>{room?.location}</span>
                 </Badge>
               </div>
+
               <p className="text-sm font-medium text-gray-400 mt-4">
                 {room?.description}
               </p>
@@ -108,6 +115,12 @@ const DetailPage = () => {
               <p className="mt-4 text-yellow-900 font-medium text-sm">
                 Reviews ({room?.reviews.length})
               </p>
+              <Reviews
+                roomId={room?.id!}
+                reviews={room?.reviews!}
+                canReview={data?.canReview}
+                refetch={refetch}
+              />
             </div>
           </div>
           <div className=" col-span-3">

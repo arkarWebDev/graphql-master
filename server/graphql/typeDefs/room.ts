@@ -6,6 +6,16 @@ export const roomTypeDefs = gql`
     public_id: String!
   }
 
+  type Review {
+    id: ID
+    user: User
+    room: Room
+    rating: Int
+    comment: String
+    createdAt: String
+    updatedAt: String
+  }
+
   type Room {
     id: ID!
     title: String!
@@ -16,7 +26,7 @@ export const roomTypeDefs = gql`
     capacity: Int!
     isAvailable: Boolean!
     images: [RoomImage]
-    reviews: [String]
+    reviews: [Review]
     location: String!
     createdAt: String
     updatedAt: String
