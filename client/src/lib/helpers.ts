@@ -56,3 +56,7 @@ export const adjustTimeZone = (date: Date | undefined) => {
 
   return localDate;
 };
+
+export const formatAmount = (amount: number) => {
+  return new Intl.NumberFormat("en-US").format(amount);
+};

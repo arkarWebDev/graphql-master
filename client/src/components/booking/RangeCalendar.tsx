@@ -21,6 +21,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   disabledDates?: string[];
   onDateChange: (date: DateRange | undefined) => void;
   onAvailabilityChange?: (available: boolean) => void;
+  isDisabled?: boolean;
 }
 
 export function RangeCalendar({
@@ -28,6 +29,7 @@ export function RangeCalendar({
   disabledDates,
   onDateChange,
   onAvailabilityChange,
+  isDisabled = true,
 }: Props) {
   const [searchParams] = useSearchParams();
   const [isAvailable, setIsAvailable] = useState(true);
@@ -108,7 +110,7 @@ export function RangeCalendar({
   };
 
   return (
-    <div className="w-full">
+    <div>
       <Popover>
         <PopoverTrigger className="w-full">
           <div className="flex items-center gap-2 border p-2 rounded-md text-sm justify-between">
@@ -141,7 +143,10 @@ export function RangeCalendar({
             selected={currentDate}
             onSelect={handleDateChange}
             numberOfMonths={2}
-            disabled={[...parsedDisabledDates, { before: new Date() }]}
+            disabled={[
+              ...parsedDisabledDates,
+              isDisabled && { before: new Date() },
+            ]}
           />
         </PopoverContent>
       </Popover>

@@ -20,6 +20,7 @@ import ForgetPasswordPage from "./components/pages/ForgetPassword.tsx";
 import PaymentPage from "./components/pages/Payment.tsx";
 import Bookings from "./components/pages/Bookings.tsx";
 import InvoiceApp from "./components/invoice/Invoice.tsx";
+import Dashboard from "./components/admin/Dashboard.tsx";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
             <ProfilePage />
           </ProtectPage>
         ),
+      },
+      {
+        path: "/admin/dashboard",
+        element: <Dashboard />,
       },
       {
         path: "/bookings/:id/payment",
