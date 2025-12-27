@@ -67,10 +67,18 @@ export const bookingTypeDefs = gql`
     meta: BookingMeta!
   }
 
-  type Query {
-    getBookingById(bookingId: String!): Booking!
-    getBookedDatesById(roomId: String!): [String]!
-    getBookingByUser: BookingListResponse!
+  type Sale {
+    date: String
+    sales: Float
+    bookings: Int
+  }
+
+  type DashboardMetaData {
+    sales: [Sale]
+    totalSales: Float
+    totalBookings: Int
+    totalPendingAmount: Float
+    totalPaidCashAmount: Float
   }
 
   input PaymentInfoInput {
@@ -81,6 +89,16 @@ export const bookingTypeDefs = gql`
 
   input updateBookingPaymentInput {
     paymentInfo: PaymentInfoInput
+  }
+
+  type Query {
+    getBookingById(bookingId: String!): Booking!
+    getBookedDatesById(roomId: String!): [String]!
+    getBookingByUser: BookingListResponse!
+    getDashboardMetaData(
+      startDate: String!
+      endDate: String!
+    ): DashboardMetaData!
   }
 
   type Mutation {
