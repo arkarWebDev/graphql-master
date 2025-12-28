@@ -99,6 +99,13 @@ export const getBookingByUser = errorHandler(async (userId: string) => {
     },
   };
 });
+1;
+
+export const getAllBookings = errorHandler(async () => {
+  const bookings = Booking.find().populate("user room").sort({ createdAt: -1 });
+
+  return bookings;
+});
 
 const getMetaData = errorHandler(async (startDate: Date, endDate: Date) => {
   const saleDataInfo = await Booking.aggregate([
@@ -250,24 +257,3 @@ export const getDashboardMetaData = errorHandler(
     };
   }
 );
-
-[
-  {
-    sales: [
-      {
-        date: "2025-10-01",
-        sales: 1000,
-        bookings: 100,
-      },
-      {
-        date: "2025-10-02",
-        sales: 2000,
-        bookings: 200,
-      },
-    ],
-    totalSales: 100000,
-    totalBookings: 5000,
-    totalPendingAmount: 2000,
-    totalPaidCashAmount: 50000,
-  },
-];

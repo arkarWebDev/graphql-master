@@ -1,6 +1,7 @@
 import { Query } from "mongoose";
 import {
   createNewBooking,
+  getAllBookings,
   getBookedDatesById,
   getBookingById,
   getBookingByUser,
@@ -9,6 +10,7 @@ import {
 } from "../../controllers/booking";
 import { BookingInput } from "../../types/booking";
 import { IUser } from "../../types/user";
+import { deleteReviewById } from "../../controllers/review";
 
 export const bookingResolvers = {
   Query: {
@@ -28,6 +30,7 @@ export const bookingResolvers = {
       _: any,
       { startDate, endDate }: { startDate: Date; endDate: Date }
     ) => getDashboardMetaData(startDate, endDate),
+    getAllBookings: async () => getAllBookings(),
   },
   Mutation: {
     createNewBooking: async (
@@ -35,7 +38,6 @@ export const bookingResolvers = {
       { bookingInput }: { bookingInput: BookingInput },
       { user }: { user: IUser }
     ) => createNewBooking(bookingInput, user.id),
-
     updateBookingPayment: async (
       _: any,
       {

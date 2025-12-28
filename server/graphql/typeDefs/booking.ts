@@ -99,6 +99,7 @@ export const bookingTypeDefs = gql`
       startDate: String!
       endDate: String!
     ): DashboardMetaData!
+    getAllBookings: [Booking]
   }
 
   type Mutation {

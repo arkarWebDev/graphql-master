@@ -50,3 +50,19 @@ export const canReview = errorHandler(
     return !!booking;
   }
 );
+
+export const getAllReviews = errorHandler(async () => {
+  const reviews = await Review.find().populate("room").sort({ createdAt: -1 });
+
+  return reviews;
+});
+
+export const deleteReviewById = errorHandler(async (reviewId: string) => {
+  const review = await Review.findByIdAndDelete(reviewId);
+
+  if (!review) {
+    throw new Error("Review not exist");
+  }
+
+  return true;
+});

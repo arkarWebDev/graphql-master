@@ -17,12 +17,15 @@ export const permissions = shield(
       logout: isAuthenticated,
 
       getDashboardMetaData: and(isAuthenticated, isAdmin),
+      getAllBookings: and(isAuthenticated, isAdmin),
+      getAllReviews: and(isAuthenticated, isAdmin),
     },
     Mutation: {
       createNewRoom: and(isAuthenticated, isAdmin),
       updateRoom: and(isAuthenticated, isAdmin),
       deleteRoom: and(isAuthenticated, isAdmin),
       deleteRoomImage: and(isAuthenticated, isAdmin),
+      deleteReviewById: and(isAuthenticated, isAdmin),
 
       uploadAvatar: isAuthenticated,
       updateUserProfile: isAuthenticated,

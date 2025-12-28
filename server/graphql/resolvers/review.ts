@@ -1,4 +1,9 @@
-import { canReview, createAndUpdateReview } from "../../controllers/review";
+import {
+  canReview,
+  createAndUpdateReview,
+  deleteReviewById,
+  getAllReviews,
+} from "../../controllers/review";
 import { ReviewInput } from "../../types/review";
 import { IUser } from "../../types/user";
 
@@ -9,6 +14,7 @@ export const reviewResolvers = {
       { reviewRoomId }: { reviewRoomId: string },
       { user }: { user: IUser }
     ) => canReview(reviewRoomId, user?.id),
+    getAllReviews: async () => getAllReviews(),
   },
   Mutation: {
     createAndUpdateReview: async (
@@ -16,5 +22,7 @@ export const reviewResolvers = {
       { reviewInput }: { reviewInput: ReviewInput },
       { user }: { user: IUser }
     ) => createAndUpdateReview(reviewInput, user?.id),
+    deleteReviewById: async (_: any, { reviewId }: { reviewId: string }) =>
+      deleteReviewById(reviewId),
   },
 };
