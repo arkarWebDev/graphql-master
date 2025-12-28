@@ -25,3 +25,15 @@ export type RoomFilters = {
   isAvailable?: boolean;
   location?: string;
 };
+
+export type RoomInput = {
+  roomNumber: string;
+  title: string;
+  description: string;
+  type: string;
+  pricePerNight: number;
+  capacity: number;
+  isAvailable: boolean;
+  images: string[];
+  location: string;
+};

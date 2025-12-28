@@ -15,7 +15,10 @@ export type Room = {
   createdAt: string;
   updatedAt: string;
   canReview: boolean;
-  ratings: number;
+  ratings: {
+    value: number;
+    count: number;
+  };
 };
 
 type RoomImage = {

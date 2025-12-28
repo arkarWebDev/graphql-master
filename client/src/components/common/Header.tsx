@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router";
 
 import { Button } from "../ui/button";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery, useReactiveVar } from "@apollo/client";
 import { CURRENT_USER, LOGOUT } from "@/graphql/queries/user";
 import {
   isAuthenticatedVar,
@@ -22,6 +22,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Header = () => {
   const navigate = useNavigate();
+  const userInfo = useReactiveVar(userInfoVar);
 
   const { data, loading } = useQuery(CURRENT_USER, {
     onCompleted: (data) => {
@@ -72,6 +73,15 @@ const Header = () => {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
+              {userInfo?.role?.includes("admin") && (
+                <>
+                  {" "}
+                  <DropdownMenuItem>
+                    <Link to={"/admin/dashboard"}>Dashboard</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                </>
+              )}
               <DropdownMenuItem>
                 <Link to={"/profile"}>Profile</Link>
               </DropdownMenuItem>

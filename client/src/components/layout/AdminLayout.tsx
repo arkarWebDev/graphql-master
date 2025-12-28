@@ -12,8 +12,8 @@ const CONTROLS = [
     path: "/admin/dashboard",
   },
   {
-    label: "Add Room",
-    path: "/admin/create-room",
+    label: "Manage Room",
+    path: "/admin/rooms",
   },
 ];
 

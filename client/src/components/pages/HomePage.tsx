@@ -30,7 +30,9 @@ const HomePage = () => {
     page,
   };
 
-  const { data, loading, error } = useQuery(GET_ALL_ROOMS, { variables });
+  const { data, loading } = useQuery(GET_ALL_ROOMS, { variables });
+  console.log(data);
+
   return (
     <main className="layout grid grid-cols-4 gap-6">
       <Filters />

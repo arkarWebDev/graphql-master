@@ -1,5 +1,5 @@
+import { Card, CardHeader } from "@/components/ui/card";
 import { formatAmount } from "@/lib/helpers";
-import { Card, CardHeader } from "../ui/card";
 
 interface Props {
   label: string;

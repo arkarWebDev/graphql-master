@@ -20,7 +20,9 @@ import ForgetPasswordPage from "./components/pages/ForgetPassword.tsx";
 import PaymentPage from "./components/pages/Payment.tsx";
 import Bookings from "./components/pages/Bookings.tsx";
 import InvoiceApp from "./components/invoice/Invoice.tsx";
-import Dashboard from "./components/admin/Dashboard.tsx";
+import ManageRoom from "./components/pages/ManageRooms.tsx";
+import CreateRoom from "./components/admin/room/CreateRoom.tsx";
+import UpdateRoom from "./components/admin/room/UpdateRoom.tsx";
 
 const router = createBrowserRouter([
   {
@@ -57,7 +59,39 @@ const router = createBrowserRouter([
       },
       {
         path: "/admin/dashboard",
-        element: <Dashboard />,
+        element: (
+          <ProtectPage roles={["admin"]}>
+            <DashboardPage />
+          </ProtectPage>
+        ),
+      },
+      {
+        path: "/admin/rooms",
+        element: (
+          <ProtectPage roles={["admin"]}>
+            <ManageRoom />
+          </ProtectPage>
+        ),
+      },
+      {
+        path: "/admin/rooms/create",
+        element: (
+          <ProtectPage roles={["admin"]}>
+            <CreateRoom />
+          </ProtectPage>
+        ),
+      },
+      {
+        path: "/admin/rooms/edit/:id",
+        element: (
+          <ProtectPage roles={["admin"]}>
+            <UpdateRoom />
+          </ProtectPage>
+        ),
+      },
+      {
+        path: "/",
+        element: <ResetPassword />,
       },
       {
         path: "/bookings/:id/payment",
@@ -82,18 +116,6 @@ const router = createBrowserRouter([
             <InvoiceApp />
           </ProtectPage>
         ),
-      },
-      {
-        path: "/dashboard",
-        element: (
-          <ProtectPage roles={["admin"]}>
-            <DashboardPage />
-          </ProtectPage>
-        ),
-      },
-      {
-        path: "/reset-password/:token",
-        element: <ResetPassword />,
       },
     ],
   },

@@ -10,16 +10,31 @@ export const GET_ALL_ROOMS = gql`
       rooms {
         id
         title
+        type
         images {
+          public_id
           url
         }
         location
         pricePerNight
-        reviews {
-          id
-          rating
+
+        ratings {
+          value
+          count
         }
       }
+    }
+  }
+`;
+
+export const GET_ALL_ROOMS_WITHOUT_FILTERS = gql`
+  query Query {
+    getAllRoomsWithoutFilters {
+      title
+      pricePerNight
+      location
+      type
+      id
     }
   }
 `;
@@ -34,6 +49,7 @@ export const GET_SINGLE_ROOM = gql`
       capacity
       description
       id
+      type
       images {
         public_id
         url
@@ -58,5 +74,25 @@ export const GET_SINGLE_ROOM = gql`
     }
     getBookedDatesById(roomId: $getBookedDatesByIdRoomId2)
     canReview(reviewRoomId: $reviewRoomId)
+  }
+`;
+
+export const GET_ROOM_BY_ID = gql`
+  query Query($roomId: String!) {
+    getRoomById(roomId: $roomId) {
+      title
+      type
+      roomNumber
+      pricePerNight
+      location
+      isAvailable
+      images {
+        url
+        public_id
+      }
+      id
+      description
+      capacity
+    }
   }
 `;

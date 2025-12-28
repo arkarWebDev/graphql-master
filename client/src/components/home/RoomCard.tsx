@@ -1,8 +1,8 @@
-import { MapPin, Star } from "lucide-react";
 import { Room } from "../../types/Room";
 import { Link } from "react-router";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import Rating from "../room/Rating";
 type RoomCardProps = {
   room: Room;
 };
@@ -26,7 +26,7 @@ const RoomCard = ({ room }: RoomCardProps) => {
 
       <div className="">
         <h2 className="text-lg font-bold mt-1">{room.title}</h2>
-        <p className="text-sm">Rating Count</p>
+        <Rating count={room.ratings.count} value={room.ratings.value} />
       </div>
       <p className="font-bold text-xl">
         $ {room.pricePerNight}{" "}

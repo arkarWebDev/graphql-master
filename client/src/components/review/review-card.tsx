@@ -75,7 +75,7 @@ function ReviewCard({ review, roomId, refetch }: Props) {
                   <FormControl>
                     <StarRatings
                       rating={field.value}
-                      starRatedColor="yello"
+                      starRatedColor="orange"
                       changeRating={field.onChange}
                       numberOfStars={5}
                       name="rating"

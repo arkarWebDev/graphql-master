@@ -33,6 +33,8 @@ export const roomTypeDefs = gql`
   }
 
   input roomInput {
+    title: String!
+    description: String!
     roomNumber: String!
     type: String!
     pricePerNight: Float!
@@ -75,11 +77,22 @@ export const roomTypeDefs = gql`
       page: Int
     ): RoomsWithPaginate
     getRoomById(roomId: String!): Room
+    getAllRoomsWithoutFilters: [Room]
   }
 
   type Mutation {
     createNewRoom(roomInput: roomInput!): Room
     updateRoom(roomId: ID!, roomInput: roomInput!): String
     deleteRoom(roomId: ID!): String
+    deleteRoomImage(roomId: ID!, imageId: String!): Boolean
+  }
+
+  type Rating {
+    value: Float!
+    count: Int!
+  }
+
+  type Room {
+    ratings: Rating!
   }
 `;

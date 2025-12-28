@@ -35,8 +35,8 @@ function Pagination({ totalRoomCount, perPage }: PaginationProps) {
         renderOnZeroPageCount={null}
         initialPage={currentPage > 1 ? currentPage - 1 : undefined}
         disabledClassName="text-gray-400"
-        pageClassName="border boder-gray-400 text-gray-400 px-5 py-2 rounded-md  cursor-pointer"
-        activeClassName="bg-black text-white border  cursor-pointer"
+        pageClassName="border boder-gray-400 text-gray-400 py-2 px-4 rounded-md cursor-pointer text-sm font-bold"
+        activeClassName="bg-black text-white border cursor-pointer py-2 px-4"
       />
     </main>
   );

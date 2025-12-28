@@ -12,6 +12,7 @@ type ProtectPageProps = {
   roles?: string[];
   children: React.ReactNode;
 };
+
 const ProtectPage = ({ roles, children }: ProtectPageProps) => {
   const isLoading = useReactiveVar(isLoadingVar);
   const isAuthenticated = useReactiveVar(isAuthenticatedVar);

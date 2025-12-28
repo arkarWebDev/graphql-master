@@ -1,7 +1,9 @@
 import {
   createNewRoom,
   deleteRoom,
+  deleteRoomImage,
   getAllRooms,
+  getAllRoomsWithoutFilters,
   getRoomById,
   updateRoom,
 } from "../../controllers/room";
@@ -19,6 +21,7 @@ export const roomResolvers = {
     ) => await getAllRooms(query, filters, page),
     getRoomById: async (_: any, { roomId }: { roomId: string }) =>
       await getRoomById(roomId),
+    getAllRoomsWithoutFilters: async () => await getAllRoomsWithoutFilters(),
   },
   Mutation: {
     createNewRoom: async (_: any, { roomInput }: { roomInput: Room }) =>
@@ -29,5 +32,12 @@ export const roomResolvers = {
     ) => await updateRoom(roomId, roomInput),
     deleteRoom: async (_: any, { roomId }: { roomId: string }) =>
       await deleteRoom(roomId),
+    deleteRoomImage: async (
+      _: any,
+      { roomId, imageId }: { roomId: string; imageId: string }
+    ) => await deleteRoomImage(roomId, imageId),
+  },
+  Room: {
+    ratings: (parent: any) => parent.ratings,
   },
 };

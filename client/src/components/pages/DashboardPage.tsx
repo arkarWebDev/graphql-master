@@ -1,5 +1,7 @@
+import Dashboard from "../admin/dashboard/Dashboard";
+
 const DashboardPage = () => {
-  return <div>DashboardPage</div>;
+  return <Dashboard />;
 };
 
 export default DashboardPage;

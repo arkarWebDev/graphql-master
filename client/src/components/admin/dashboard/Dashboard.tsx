@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import AdminLayout from "./AdminLayout";
+import { useEffect, useState } from "react";
 import { DateRange } from "react-day-picker";
 import { useLazyQuery } from "@apollo/client";
 import { GET_DASHBOARD_META_DATA } from "@/graphql/queries/booking";
 import { adjustTimeZone } from "@/lib/helpers";
 import StatusCard from "./StatusCard";
-import { Banknote, CircleDollarSign, HandCoins, Ticket } from "lucide-react";
-import { RangeCalendar } from "../booking/RangeCalendar";
-import { SalesChart } from "./SalesChart";
+import AdminLayout from "@/components/layout/AdminLayout";
+import { RangeCalendar } from "@/components/booking/RangeCalendar";
+import { SalesChart } from "../charts/SalesChart";
 
 function Dashboard() {
   const [dates, setDates] = useState<DateRange | undefined>({
@@ -15,7 +14,7 @@ function Dashboard() {
     to: new Date(Date.now()),
   });
 
-  const [getDashboardMetaData, { data, loading }] = useLazyQuery(
+  const [getDashboardMetaData, { data }] = useLazyQuery(
     GET_DASHBOARD_META_DATA,
     {
       variables: {

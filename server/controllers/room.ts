@@ -1,7 +1,8 @@
 import errorHandler from "../middlewares/errorHandler";
 import { Room } from "../models/room";
-import { RoomFilters, Room as RoomType } from "../types/room";
+import { RoomFilters, RoomInput, Room as RoomType } from "../types/room";
 import APIFilters from "../util/apiFilters";
+import { deleteImage, uploadMultipleImages } from "../util/cloudinary";
 import { NotFoundError } from "../util/not-found";
 
 export const getAllRooms = errorHandler(
@@ -10,7 +11,8 @@ export const getAllRooms = errorHandler(
     const apiFilters = new APIFilters(Room)
       .search(query)
       .filters(filters)
-      .populate("reviews");
+      .populate("reviews")
+      .sort({ createdAt: -1 });
 
     let rooms = await apiFilters.model;
     const totalRoomCount = rooms.length;
@@ -24,9 +26,39 @@ export const getAllRooms = errorHandler(
   }
 );
 
-export const createNewRoom = errorHandler(async (roomInput: RoomType) => {
-  const newRoom = await Room.create(roomInput);
-  return newRoom;
+export const getAllRoomsWithoutFilters = errorHandler(async () => {
+  const rooms = await Room.find().sort({ createdAt: -1 });
+  return rooms;
+});
+
+export const createNewRoom = errorHandler(async (roomInput: RoomInput) => {
+  let uploadedImageUrls: { img_url: string; public_id: string }[] = [];
+
+  try {
+    uploadedImageUrls = await uploadMultipleImages(
+      roomInput.images,
+      "golden-compass/rooms"
+    );
+    const newRoom = await Room.create({
+      ...roomInput,
+      images: uploadedImageUrls.map((img) => {
+        return {
+          url: img.img_url,
+          public_id: img.public_id,
+        };
+      }),
+    });
+    return newRoom;
+  } catch (error) {
+    if (uploadedImageUrls.length > 0) {
+      const deletedPromises = uploadedImageUrls.map((img) => {
+        return deleteImage(img.public_id);
+      });
+
+      await Promise.all(deletedPromises);
+    }
+    throw error;
+  }
 });
 
 export const getRoomById = errorHandler(async (roomId: string) => {
@@ -45,15 +77,63 @@ export const getRoomById = errorHandler(async (roomId: string) => {
 });
 
 export const updateRoom = errorHandler(
-  async (roomId: string, roomInput: RoomType) => {
+  async (roomId: string, roomInput: RoomInput) => {
     const room = await Room.findById(roomId);
 
     if (!room) {
       throw new NotFoundError("Room not found.");
     }
 
-    await room.set(roomInput).save();
+    let uploadedImageUrls: { img_url: string; public_id: string }[] = [];
+
+    if (roomInput?.images?.length > 0) {
+      uploadedImageUrls = await uploadMultipleImages(
+        roomInput.images,
+        "golden-compass/rooms"
+      );
+    }
+
+    await room
+      .set({
+        ...roomInput,
+        images:
+          uploadedImageUrls.length > 0
+            ? [
+                ...room.images,
+                ...uploadedImageUrls.map((img) => ({
+                  url: img.img_url,
+                  public_id: img.public_id,
+                })),
+              ]
+            : room.images,
+      })
+      .save();
     return "Room is updated.";
+  }
+);
+
+export const deleteRoomImage = errorHandler(
+  async (roomId: string, imageId: string) => {
+    const room = await Room.findById(roomId);
+
+    if (!room) {
+      throw new Error("Room not found");
+    }
+
+    const isDeleted = await deleteImage(imageId);
+    if (isDeleted) {
+      await Room.findByIdAndUpdate(roomId, {
+        $pull: {
+          images: {
+            public_id: imageId,
+          },
+        },
+      });
+
+      return true;
+    } else {
+      throw new Error("Image not deleted");
+    }
   }
 );
 
@@ -62,6 +142,12 @@ export const deleteRoom = errorHandler(async (roomId: string) => {
 
   if (!room) {
     throw new NotFoundError("Room not found.");
+  }
+
+  if (room?.images?.length > 0) {
+    room?.images.forEach(async (img) => {
+      await deleteImage(img.public_id!);
+    });
   }
 
   await room.deleteOne();

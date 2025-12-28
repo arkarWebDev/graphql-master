@@ -52,6 +52,11 @@ class APIFilters {
     this.model = this.model.populate(field);
     return this;
   }
+
+  sort(option: any) {
+    this.model = this.model.sort({ createdAt: -1 });
+    return this;
+  }
 }
 
 export default APIFilters;
