@@ -12,8 +12,16 @@ const CONTROLS = [
     path: "/admin/dashboard",
   },
   {
-    label: "Manage Room",
+    label: "Manage Rooms",
     path: "/admin/rooms",
+  },
+  {
+    label: "Manage Bookings",
+    path: "/admin/bookings",
+  },
+  {
+    label: "Manage Reviews",
+    path: "/admin/reviews",
   },
 ];
 

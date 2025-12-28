@@ -5,6 +5,9 @@ export type BookingRow = {
   startDate: string;
   endDate: string;
   total: number;
+  daysOfRent: number;
   paymentStatus: "paid" | "pending";
   paymentMethod: "card" | "cash";
+  customerEmail: string;
+  customerName: string;
 };

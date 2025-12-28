@@ -23,6 +23,8 @@ import InvoiceApp from "./components/invoice/Invoice.tsx";
 import ManageRoom from "./components/pages/ManageRooms.tsx";
 import CreateRoom from "./components/admin/room/CreateRoom.tsx";
 import UpdateRoom from "./components/admin/room/UpdateRoom.tsx";
+import BookingList from "./components/admin/booking/BookingList.tsx";
+import ReviewList from "./components/admin/review/ReviewList.tsx";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +88,22 @@ const router = createBrowserRouter([
         element: (
           <ProtectPage roles={["admin"]}>
             <UpdateRoom />
+          </ProtectPage>
+        ),
+      },
+      {
+        path: "/admin/bookings",
+        element: (
+          <ProtectPage roles={["admin"]}>
+            <BookingList />
+          </ProtectPage>
+        ),
+      },
+      {
+        path: "/admin/reviews",
+        element: (
+          <ProtectPage roles={["admin"]}>
+            <ReviewList />
           </ProtectPage>
         ),
       },
