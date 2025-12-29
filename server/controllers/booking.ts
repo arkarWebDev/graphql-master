@@ -1,3 +1,4 @@
+import { pubsub } from "../apollo/pubsub";
 import errorHandler from "../middlewares/errorHandler";
 import { Booking } from "../models/booking";
 import { BookingInput } from "../types/booking";
@@ -11,6 +12,9 @@ export const createNewBooking = errorHandler(
       user: userId,
     });
 
+    pubsub.publish("NEW_BOOKING", {
+      newBookingNoti: "New booking placed.",
+    });
     return newBooking;
   }
 );

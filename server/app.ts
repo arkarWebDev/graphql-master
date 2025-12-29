@@ -16,11 +16,5 @@ app.use(
 );
 app.use(cookieParser());
 
-const PORT = process.env.PORT || 4040;
-
 dbConnect();
 startApolloServer(app);
-
-app.listen(PORT, () => {
-  console.log("Server is running on PORT: ", PORT);
-});

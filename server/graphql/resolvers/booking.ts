@@ -11,8 +11,16 @@ import {
 import { BookingInput } from "../../types/booking";
 import { IUser } from "../../types/user";
 import { deleteReviewById } from "../../controllers/review";
+import { pubsub } from "../../apollo/pubsub";
 
 export const bookingResolvers = {
+  Subscription: {
+    newBookingNoti: {
+      subscribe: () => {
+        return pubsub.asyncIterableIterator(["NEW_BOOKING"]);
+      },
+    },
+  },
   Query: {
     getBookingById: async (
       _: any,
