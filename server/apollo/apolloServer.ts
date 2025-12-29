@@ -22,6 +22,9 @@ import { createServer } from "http";
 import { WebSocketServer } from "ws";
 import { useServer } from "graphql-ws/use/ws";
 
+import dotenv from "dotenv";
+dotenv.config();
+
 type JWTPayload = {
   _id: string;
 };
@@ -84,7 +87,7 @@ export const startApolloServer = async (app: Application) => {
     "/graphql",
     cors({
       credentials: true,
-      origin: ["http://localhost:5173"],
+      origin: [process.env.CLIENT_URL!],
     }),
     json(),
     expressMiddleware(apolloServer, {

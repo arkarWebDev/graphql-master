@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import { dbConnect } from "./config/dbConnet";
 import { startApolloServer } from "./apollo/apolloServer";
 import cookieParser from "cookie-parser";
-dotenv.config({ path: "config/.env.local" });
+dotenv.config();
 
 const app = express();
 
@@ -16,5 +16,12 @@ app.use(
 );
 app.use(cookieParser());
 
-dbConnect();
-startApolloServer(app);
+const startService = async () => {
+  await dbConnect();
+  await startApolloServer(app);
+};
+
+startService().catch((err) => {
+  console.log(err);
+  process.exit(1);
+});

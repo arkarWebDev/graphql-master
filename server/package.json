@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec ts-node app.ts",
+    "build": "tsc",
+    "start": "node dist/app.js",
     "db-seeder": "tsc seeder/seeder.ts --outDir .tmp && node ./.tmp/seeder/seeder.js && rm -rf .tmp"
   },
   "keywords": [],
