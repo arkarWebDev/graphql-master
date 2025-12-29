@@ -10,8 +10,10 @@ import { Input } from "../ui/input";
 import { Search, X } from "lucide-react";
 import { useLocation, useNavigate, useSearchParams } from "react-router";
 import { updateSearchParams } from "@/lib/helpers";
-import { Count, Locations, Types } from "@/lib/filtersData";
 import { Checkbox } from "../ui/checkbox";
+
+const Locations = ["Yangon", "Mandalay", "Bagan", "Shan"];
+const Types = ["Single", "Double", "Suite"];
 
 function Filters() {
   const [searchKey, setSearchKey] = useState<string>("");
